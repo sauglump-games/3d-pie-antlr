@@ -1,0 +1,6 @@
+{
+  // Use the workspace TypeScript (matches the CLI: tsc / ts-node), not VS Code's
+  // bundled version. Avoids editor-only resolution differences under node16.
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}

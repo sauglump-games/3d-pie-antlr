@@ -1,16 +1,15 @@
 {
-    "compilerOptions": {
-      "target": "es6",
-      "strict": true,
-      "rootDir": "./src",
-      "outDir": "./dist/",
-      "declaration": true,
-      "sourceMap": true,
-      "noImplicitAny": true,
-      "module": "node16",
-      "moduleResolution": "node16",
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true
-    },
-    "include": ["./src/**/*"]
-  }
+  "compilerOptions": {
+    "target": "es6",
+    "strict": true,
+    "noImplicitAny": true,
+    "module": "node16",
+    "moduleResolution": "node16",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "types": ["node"],
+    "noEmit": true
+  },
+  "include": ["src", "test", "scripts"]
+}
