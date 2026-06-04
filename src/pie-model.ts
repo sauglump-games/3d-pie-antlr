@@ -123,14 +123,23 @@ export class PIEModel {
     if (this.header.interpolate !== undefined) {
       lines.push(`INTERPOLATE ${this.header.interpolate}`);
     }
-    for (const event of this.header.events) {
-      lines.push(`EVENT ${event.type} ${event.filename}`);
-    }
+    // Order matters: the grammars require TEXTURE before EVENT.
     for (const texture of this.header.textures) {
       const hasSize = texture.width !== undefined && texture.height !== undefined;
       const size = hasSize ? ` ${texture.width} ${texture.height}` : v === 2 ? ` 0 0` : "";
       lines.push(`TEXTURE ${texture.id} ${texture.filename}${size}`);
     }
+    for (const event of this.header.events) {
+      lines.push(`EVENT ${event.type} ${event.filename}`);
+    }
+
+    const emitConnectors = (connectors: PIEConnector[]) => {
+      if (connectors.length === 0) return;
+      lines.push(`CONNECTORS ${connectors.length}`);
+      for (const c of connectors) {
+        lines.push(`\t${formatNumber(c.x)} ${formatNumber(c.y)} ${formatNumber(c.z)}`);
+      }
+    };
 
     lines.push(`LEVELS ${this.levels.length}`);
     this.levels.forEach((level, index) => {
@@ -162,23 +171,15 @@ export class PIEModel {
         }
       }
 
-      if (!fileLevelConnectors && level.connectors.length > 0) {
-        lines.push(`CONNECTORS ${level.connectors.length}`);
-        for (const c of level.connectors) {
-          lines.push(`\t${formatNumber(c.x)} ${formatNumber(c.y)} ${formatNumber(c.z)}`);
-        }
+      if (!fileLevelConnectors) {
+        // PIE2/PIE3: connectors are per-level.
+        emitConnectors(level.connectors);
+      } else if (index === 0) {
+        // PIE4: a single file-level CONNECTORS block sits after the first
+        // level, before any subsequent LEVEL.
+        emitConnectors(this.levels.flatMap((l) => l.connectors));
       }
     });
-
-    if (fileLevelConnectors) {
-      const connectors = this.levels.flatMap((level) => level.connectors);
-      if (connectors.length > 0) {
-        lines.push(`CONNECTORS ${connectors.length}`);
-        for (const c of connectors) {
-          lines.push(`\t${formatNumber(c.x)} ${formatNumber(c.y)} ${formatNumber(c.z)}`);
-        }
-      }
-    }
 
     return lines.join("\n") + "\n";
   }
