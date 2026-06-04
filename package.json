@@ -17,7 +17,7 @@
     "pretest": "npm run antlr4ts",
     "test": "node --require ts-node/register --test test/*.test.ts",
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint .",
+    "lint": "tsc -p tsconfig.json --noEmit",
     "antlr4ts": "antlr4ts -visitor ./g4/PIE4.g4 -o ./src/ && antlr4ts -visitor ./g4/PIE3.g4 -o ./src/ && antlr4ts -visitor ./g4/PIE2.g4 -o ./src/",
     "prepack": "npm run antlr4ts && npm run build",
     "demo:gltf": "node --require ts-node/register scripts/pie2gltf.ts test/fixtures/PIE3/cybd_run.pie cybd_run.gltf --fetch-texture",
@@ -33,15 +33,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@eslint/js": "^9.20.0",
-    "@types/node": "^22.19.19",
-    "antlr4ts-cli": "^0.5.0-alpha.4",
-    "eslint": "^9.20.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.2",
-    "typescript-eslint": "^8.24.0"
+    "@types/node": "22.19.19",
+    "antlr4ts-cli": "0.5.0-alpha.4",
+    "ts-node": "10.9.2",
+    "typescript": "6.0.3"
   },
   "dependencies": {
-    "antlr4ts": "^0.5.0-alpha.4"
+    "antlr4ts": "0.5.0-alpha.4"
   }
 }
