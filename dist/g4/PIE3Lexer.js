@@ -1,10 +1,46 @@
+"use strict";
 // Generated from ./g4/PIE3.g4 by ANTLR 4.9.0-SNAPSHOT
-import { ATNDeserializer } from "antlr4ts/atn/ATNDeserializer";
-import { Lexer } from "antlr4ts/Lexer";
-import { LexerATNSimulator } from "antlr4ts/atn/LexerATNSimulator";
-import { VocabularyImpl } from "antlr4ts/VocabularyImpl";
-import * as Utils from "antlr4ts/misc/Utils";
-export class PIE3Lexer extends Lexer {
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PIE3Lexer = void 0;
+const ATNDeserializer_1 = require("antlr4ts/atn/ATNDeserializer");
+const Lexer_1 = require("antlr4ts/Lexer");
+const LexerATNSimulator_1 = require("antlr4ts/atn/LexerATNSimulator");
+const VocabularyImpl_1 = require("antlr4ts/VocabularyImpl");
+const Utils = __importStar(require("antlr4ts/misc/Utils"));
+class PIE3Lexer extends Lexer_1.Lexer {
     // @Override
     // @NotNull
     get vocabulary() {
@@ -13,7 +49,7 @@ export class PIE3Lexer extends Lexer {
     // tslint:enable:no-trailing-whitespace
     constructor(input) {
         super(input);
-        this._interp = new LexerATNSimulator(PIE3Lexer._ATN, this);
+        this._interp = new LexerATNSimulator_1.LexerATNSimulator(PIE3Lexer._ATN, this);
     }
     // @Override
     get grammarFileName() { return "PIE3.g4"; }
@@ -27,11 +63,12 @@ export class PIE3Lexer extends Lexer {
     get modeNames() { return PIE3Lexer.modeNames; }
     static get _ATN() {
         if (!PIE3Lexer.__ATN) {
-            PIE3Lexer.__ATN = new ATNDeserializer().deserialize(Utils.toCharArray(PIE3Lexer._serializedATN));
+            PIE3Lexer.__ATN = new ATNDeserializer_1.ATNDeserializer().deserialize(Utils.toCharArray(PIE3Lexer._serializedATN));
         }
         return PIE3Lexer.__ATN;
     }
 }
+exports.PIE3Lexer = PIE3Lexer;
 PIE3Lexer.PIE = 1;
 PIE3Lexer.TYPE = 2;
 PIE3Lexer.INTERPOLATE = 3;
@@ -80,7 +117,7 @@ PIE3Lexer._SYMBOLIC_NAMES = [
     "NORMALS", "ANIMOBJECT", "INT", "FLOAT", "NEG_NUMBER", "SCI_NUMBER", "NEG_SCI_NUMBER",
     "STRING", "NL", "WS", "COMMENT",
 ];
-PIE3Lexer.VOCABULARY = new VocabularyImpl(PIE3Lexer._LITERAL_NAMES, PIE3Lexer._SYMBOLIC_NAMES, []);
+PIE3Lexer.VOCABULARY = new VocabularyImpl_1.VocabularyImpl(PIE3Lexer._LITERAL_NAMES, PIE3Lexer._SYMBOLIC_NAMES, []);
 PIE3Lexer._serializedATN = "\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x02\x19\u011B\b\x01" +
     "\x04\x02\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06" +
     "\x04\x07\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r" +

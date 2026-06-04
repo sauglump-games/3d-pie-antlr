@@ -1,16 +1,52 @@
+"use strict";
 // Generated from ./g4/PIE3.g4 by ANTLR 4.9.0-SNAPSHOT
-import { ATN } from "antlr4ts/atn/ATN";
-import { ATNDeserializer } from "antlr4ts/atn/ATNDeserializer";
-import { FailedPredicateException } from "antlr4ts/FailedPredicateException";
-import { NoViableAltException } from "antlr4ts/NoViableAltException";
-import { Parser } from "antlr4ts/Parser";
-import { ParserRuleContext } from "antlr4ts/ParserRuleContext";
-import { ParserATNSimulator } from "antlr4ts/atn/ParserATNSimulator";
-import { RecognitionException } from "antlr4ts/RecognitionException";
-import { Token } from "antlr4ts/Token";
-import { VocabularyImpl } from "antlr4ts/VocabularyImpl";
-import * as Utils from "antlr4ts/misc/Utils";
-export class PIE3Parser extends Parser {
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AnimFrameContext = exports.AnimFrameListContext = exports.AnimObjectDataContext = exports.ConnectorContext = exports.ConnectorListContext = exports.ConnectorDataContext = exports.CornerDataContext = exports.PolygonContext = exports.PolygonListContext = exports.PolygonsDataContext = exports.NumberContext = exports.NormalContext = exports.NormalsListContext = exports.NormalsDataContext = exports.PointContext = exports.PointListContext = exports.PointsDataContext = exports.SpecularMapContext = exports.NormalMapContext = exports.TextureInfoContext = exports.EventInfoContext = exports.InterpolateInfoContext = exports.TypeInfoContext = exports.PieVersionContext = exports.LevelContext = exports.LevelListContext = exports.LevelsHeaderContext = exports.PieBodyContext = exports.PieHeaderContext = exports.PieFileContext = exports.PIE3Parser = void 0;
+const ATN_1 = require("antlr4ts/atn/ATN");
+const ATNDeserializer_1 = require("antlr4ts/atn/ATNDeserializer");
+const FailedPredicateException_1 = require("antlr4ts/FailedPredicateException");
+const NoViableAltException_1 = require("antlr4ts/NoViableAltException");
+const Parser_1 = require("antlr4ts/Parser");
+const ParserRuleContext_1 = require("antlr4ts/ParserRuleContext");
+const ParserATNSimulator_1 = require("antlr4ts/atn/ParserATNSimulator");
+const RecognitionException_1 = require("antlr4ts/RecognitionException");
+const Token_1 = require("antlr4ts/Token");
+const VocabularyImpl_1 = require("antlr4ts/VocabularyImpl");
+const Utils = __importStar(require("antlr4ts/misc/Utils"));
+class PIE3Parser extends Parser_1.Parser {
     // @Override
     // @NotNull
     get vocabulary() {
@@ -24,11 +60,11 @@ export class PIE3Parser extends Parser {
     // @Override
     get serializedATN() { return PIE3Parser._serializedATN; }
     createFailedPredicateException(predicate, message) {
-        return new FailedPredicateException(this, predicate, message);
+        return new FailedPredicateException_1.FailedPredicateException(this, predicate, message);
     }
     constructor(input) {
         super(input);
-        this._interp = new ParserATNSimulator(PIE3Parser._ATN, this);
+        this._interp = new ParserATNSimulator_1.ParserATNSimulator(PIE3Parser._ATN, this);
     }
     // @RuleVersion(0)
     pieFile() {
@@ -46,7 +82,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -136,7 +172,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -164,7 +200,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -194,7 +230,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -233,7 +269,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -300,7 +336,7 @@ export class PIE3Parser extends Parser {
                                 }
                                 break;
                             default:
-                                throw new NoViableAltException(this);
+                                throw new NoViableAltException_1.NoViableAltException(this);
                         }
                     }
                     this.state = 112;
@@ -310,7 +346,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -336,7 +372,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -366,7 +402,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -396,7 +432,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -428,7 +464,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -472,7 +508,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -504,7 +540,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -536,7 +572,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -568,7 +604,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -607,7 +643,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -641,7 +677,7 @@ export class PIE3Parser extends Parser {
                     this._errHandler.recoverInline(this);
                 }
                 else {
-                    if (this._input.LA(1) === Token.EOF) {
+                    if (this._input.LA(1) === Token_1.Token.EOF) {
                         this.matchedEOF = true;
                     }
                     this._errHandler.reportMatch(this);
@@ -650,7 +686,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -682,7 +718,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -721,7 +757,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -773,7 +809,7 @@ export class PIE3Parser extends Parser {
                     this._errHandler.recoverInline(this);
                 }
                 else {
-                    if (this._input.LA(1) === Token.EOF) {
+                    if (this._input.LA(1) === Token_1.Token.EOF) {
                         this.matchedEOF = true;
                     }
                     this._errHandler.reportMatch(this);
@@ -782,7 +818,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -810,7 +846,7 @@ export class PIE3Parser extends Parser {
                     this._errHandler.recoverInline(this);
                 }
                 else {
-                    if (this._input.LA(1) === Token.EOF) {
+                    if (this._input.LA(1) === Token_1.Token.EOF) {
                         this.matchedEOF = true;
                     }
                     this._errHandler.reportMatch(this);
@@ -819,7 +855,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -851,7 +887,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -890,7 +926,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -940,7 +976,7 @@ export class PIE3Parser extends Parser {
                     this._errHandler.recoverInline(this);
                 }
                 else {
-                    if (this._input.LA(1) === Token.EOF) {
+                    if (this._input.LA(1) === Token_1.Token.EOF) {
                         this.matchedEOF = true;
                     }
                     this._errHandler.reportMatch(this);
@@ -949,7 +985,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -985,16 +1021,16 @@ export class PIE3Parser extends Parser {
                             }
                             break;
                         default:
-                            throw new NoViableAltException(this);
+                            throw new NoViableAltException_1.NoViableAltException(this);
                     }
                     this.state = 216;
                     this._errHandler.sync(this);
                     _alt = this.interpreter.adaptivePredict(this._input, 15, this._ctx);
-                } while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER);
+                } while (_alt !== 2 && _alt !== ATN_1.ATN.INVALID_ALT_NUMBER);
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -1026,7 +1062,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -1065,7 +1101,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -1099,7 +1135,7 @@ export class PIE3Parser extends Parser {
                     this._errHandler.recoverInline(this);
                 }
                 else {
-                    if (this._input.LA(1) === Token.EOF) {
+                    if (this._input.LA(1) === Token_1.Token.EOF) {
                         this.matchedEOF = true;
                     }
                     this._errHandler.reportMatch(this);
@@ -1108,7 +1144,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -1144,7 +1180,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -1183,7 +1219,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -1231,7 +1267,7 @@ export class PIE3Parser extends Parser {
                     this._errHandler.recoverInline(this);
                 }
                 else {
-                    if (this._input.LA(1) === Token.EOF) {
+                    if (this._input.LA(1) === Token_1.Token.EOF) {
                         this.matchedEOF = true;
                     }
                     this._errHandler.reportMatch(this);
@@ -1240,7 +1276,7 @@ export class PIE3Parser extends Parser {
             }
         }
         catch (re) {
-            if (re instanceof RecognitionException) {
+            if (re instanceof RecognitionException_1.RecognitionException) {
                 _localctx.exception = re;
                 this._errHandler.reportError(this, re);
                 this._errHandler.recover(this, re);
@@ -1256,11 +1292,12 @@ export class PIE3Parser extends Parser {
     }
     static get _ATN() {
         if (!PIE3Parser.__ATN) {
-            PIE3Parser.__ATN = new ATNDeserializer().deserialize(Utils.toCharArray(PIE3Parser._serializedATN));
+            PIE3Parser.__ATN = new ATNDeserializer_1.ATNDeserializer().deserialize(Utils.toCharArray(PIE3Parser._serializedATN));
         }
         return PIE3Parser.__ATN;
     }
 }
+exports.PIE3Parser = PIE3Parser;
 PIE3Parser.PIE = 1;
 PIE3Parser.TYPE = 2;
 PIE3Parser.INTERPOLATE = 3;
@@ -1334,7 +1371,7 @@ PIE3Parser._SYMBOLIC_NAMES = [
     "NORMALS", "ANIMOBJECT", "INT", "FLOAT", "NEG_NUMBER", "SCI_NUMBER", "NEG_SCI_NUMBER",
     "STRING", "NL", "WS", "COMMENT",
 ];
-PIE3Parser.VOCABULARY = new VocabularyImpl(PIE3Parser._LITERAL_NAMES, PIE3Parser._SYMBOLIC_NAMES, []);
+PIE3Parser.VOCABULARY = new VocabularyImpl_1.VocabularyImpl(PIE3Parser._LITERAL_NAMES, PIE3Parser._SYMBOLIC_NAMES, []);
 PIE3Parser._serializedATN = "\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\x19\u0105\x04" +
     "\x02\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04" +
     "\x07\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r" +
@@ -1443,7 +1480,7 @@ PIE3Parser._serializedATN = "\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC24
     "\x05(\x15\x02\u0100\u0101\x05(\x15\x02\u0101\u0102\x05(\x15\x02\u0102" +
     "\u0103\t\x02\x02\x02\u0103=\x03\x02\x02\x02\x14FILQUXdnp\x87\x9D\xAD\xB8" +
     "\xC7\xD2\xDA\xE4\xF6";
-export class PieFileContext extends ParserRuleContext {
+class PieFileContext extends ParserRuleContext_1.ParserRuleContext {
     pieHeader() {
         return this.getRuleContext(0, PieHeaderContext);
     }
@@ -1478,7 +1515,8 @@ export class PieFileContext extends ParserRuleContext {
         }
     }
 }
-export class PieHeaderContext extends ParserRuleContext {
+exports.PieFileContext = PieFileContext;
+class PieHeaderContext extends ParserRuleContext_1.ParserRuleContext {
     PIE() { return this.getToken(PIE3Parser.PIE, 0); }
     pieVersion() {
         return this.getRuleContext(0, PieVersionContext);
@@ -1534,7 +1572,8 @@ export class PieHeaderContext extends ParserRuleContext {
         }
     }
 }
-export class PieBodyContext extends ParserRuleContext {
+exports.PieHeaderContext = PieHeaderContext;
+class PieBodyContext extends ParserRuleContext_1.ParserRuleContext {
     levelsHeader() {
         return this.getRuleContext(0, LevelsHeaderContext);
     }
@@ -1568,7 +1607,8 @@ export class PieBodyContext extends ParserRuleContext {
         }
     }
 }
-export class LevelsHeaderContext extends ParserRuleContext {
+exports.PieBodyContext = PieBodyContext;
+class LevelsHeaderContext extends ParserRuleContext_1.ParserRuleContext {
     LEVELS() { return this.getToken(PIE3Parser.LEVELS, 0); }
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     NL() { return this.getToken(PIE3Parser.NL, 0); }
@@ -1599,7 +1639,8 @@ export class LevelsHeaderContext extends ParserRuleContext {
         }
     }
 }
-export class LevelListContext extends ParserRuleContext {
+exports.LevelsHeaderContext = LevelsHeaderContext;
+class LevelListContext extends ParserRuleContext_1.ParserRuleContext {
     level(i) {
         if (i === undefined) {
             return this.getRuleContexts(LevelContext);
@@ -1635,7 +1676,8 @@ export class LevelListContext extends ParserRuleContext {
         }
     }
 }
-export class LevelContext extends ParserRuleContext {
+exports.LevelListContext = LevelListContext;
+class LevelContext extends ParserRuleContext_1.ParserRuleContext {
     LEVEL() { return this.getToken(PIE3Parser.LEVEL, 0); }
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     NL() { return this.getToken(PIE3Parser.NL, 0); }
@@ -1706,7 +1748,8 @@ export class LevelContext extends ParserRuleContext {
         }
     }
 }
-export class PieVersionContext extends ParserRuleContext {
+exports.LevelContext = LevelContext;
+class PieVersionContext extends ParserRuleContext_1.ParserRuleContext {
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
@@ -1735,7 +1778,8 @@ export class PieVersionContext extends ParserRuleContext {
         }
     }
 }
-export class TypeInfoContext extends ParserRuleContext {
+exports.PieVersionContext = PieVersionContext;
+class TypeInfoContext extends ParserRuleContext_1.ParserRuleContext {
     TYPE() { return this.getToken(PIE3Parser.TYPE, 0); }
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     NL() { return this.getToken(PIE3Parser.NL, 0); }
@@ -1766,7 +1810,8 @@ export class TypeInfoContext extends ParserRuleContext {
         }
     }
 }
-export class InterpolateInfoContext extends ParserRuleContext {
+exports.TypeInfoContext = TypeInfoContext;
+class InterpolateInfoContext extends ParserRuleContext_1.ParserRuleContext {
     INTERPOLATE() { return this.getToken(PIE3Parser.INTERPOLATE, 0); }
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     NL() { return this.getToken(PIE3Parser.NL, 0); }
@@ -1797,7 +1842,8 @@ export class InterpolateInfoContext extends ParserRuleContext {
         }
     }
 }
-export class EventInfoContext extends ParserRuleContext {
+exports.InterpolateInfoContext = InterpolateInfoContext;
+class EventInfoContext extends ParserRuleContext_1.ParserRuleContext {
     EVENT() { return this.getToken(PIE3Parser.EVENT, 0); }
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     STRING() { return this.getToken(PIE3Parser.STRING, 0); }
@@ -1829,7 +1875,8 @@ export class EventInfoContext extends ParserRuleContext {
         }
     }
 }
-export class TextureInfoContext extends ParserRuleContext {
+exports.EventInfoContext = EventInfoContext;
+class TextureInfoContext extends ParserRuleContext_1.ParserRuleContext {
     TEXTURE() { return this.getToken(PIE3Parser.TEXTURE, 0); }
     INT(i) {
         if (i === undefined) {
@@ -1868,7 +1915,8 @@ export class TextureInfoContext extends ParserRuleContext {
         }
     }
 }
-export class NormalMapContext extends ParserRuleContext {
+exports.TextureInfoContext = TextureInfoContext;
+class NormalMapContext extends ParserRuleContext_1.ParserRuleContext {
     NORMALMAP() { return this.getToken(PIE3Parser.NORMALMAP, 0); }
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     STRING() { return this.getToken(PIE3Parser.STRING, 0); }
@@ -1900,7 +1948,8 @@ export class NormalMapContext extends ParserRuleContext {
         }
     }
 }
-export class SpecularMapContext extends ParserRuleContext {
+exports.NormalMapContext = NormalMapContext;
+class SpecularMapContext extends ParserRuleContext_1.ParserRuleContext {
     SPECULARMAP() { return this.getToken(PIE3Parser.SPECULARMAP, 0); }
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     STRING() { return this.getToken(PIE3Parser.STRING, 0); }
@@ -1932,7 +1981,8 @@ export class SpecularMapContext extends ParserRuleContext {
         }
     }
 }
-export class PointsDataContext extends ParserRuleContext {
+exports.SpecularMapContext = SpecularMapContext;
+class PointsDataContext extends ParserRuleContext_1.ParserRuleContext {
     POINTS() { return this.getToken(PIE3Parser.POINTS, 0); }
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     NL() { return this.getToken(PIE3Parser.NL, 0); }
@@ -1966,7 +2016,8 @@ export class PointsDataContext extends ParserRuleContext {
         }
     }
 }
-export class PointListContext extends ParserRuleContext {
+exports.PointsDataContext = PointsDataContext;
+class PointListContext extends ParserRuleContext_1.ParserRuleContext {
     point(i) {
         if (i === undefined) {
             return this.getRuleContexts(PointContext);
@@ -2002,7 +2053,8 @@ export class PointListContext extends ParserRuleContext {
         }
     }
 }
-export class PointContext extends ParserRuleContext {
+exports.PointListContext = PointListContext;
+class PointContext extends ParserRuleContext_1.ParserRuleContext {
     number(i) {
         if (i === undefined) {
             return this.getRuleContexts(NumberContext);
@@ -2040,7 +2092,8 @@ export class PointContext extends ParserRuleContext {
         }
     }
 }
-export class NormalsDataContext extends ParserRuleContext {
+exports.PointContext = PointContext;
+class NormalsDataContext extends ParserRuleContext_1.ParserRuleContext {
     NORMALS() { return this.getToken(PIE3Parser.NORMALS, 0); }
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     NL() { return this.getToken(PIE3Parser.NL, 0); }
@@ -2074,7 +2127,8 @@ export class NormalsDataContext extends ParserRuleContext {
         }
     }
 }
-export class NormalsListContext extends ParserRuleContext {
+exports.NormalsDataContext = NormalsDataContext;
+class NormalsListContext extends ParserRuleContext_1.ParserRuleContext {
     normal(i) {
         if (i === undefined) {
             return this.getRuleContexts(NormalContext);
@@ -2110,7 +2164,8 @@ export class NormalsListContext extends ParserRuleContext {
         }
     }
 }
-export class NormalContext extends ParserRuleContext {
+exports.NormalsListContext = NormalsListContext;
+class NormalContext extends ParserRuleContext_1.ParserRuleContext {
     number(i) {
         if (i === undefined) {
             return this.getRuleContexts(NumberContext);
@@ -2148,7 +2203,8 @@ export class NormalContext extends ParserRuleContext {
         }
     }
 }
-export class NumberContext extends ParserRuleContext {
+exports.NormalContext = NormalContext;
+class NumberContext extends ParserRuleContext_1.ParserRuleContext {
     INT() { return this.tryGetToken(PIE3Parser.INT, 0); }
     FLOAT() { return this.tryGetToken(PIE3Parser.FLOAT, 0); }
     NEG_NUMBER() { return this.tryGetToken(PIE3Parser.NEG_NUMBER, 0); }
@@ -2181,7 +2237,8 @@ export class NumberContext extends ParserRuleContext {
         }
     }
 }
-export class PolygonsDataContext extends ParserRuleContext {
+exports.NumberContext = NumberContext;
+class PolygonsDataContext extends ParserRuleContext_1.ParserRuleContext {
     POLYGONS() { return this.getToken(PIE3Parser.POLYGONS, 0); }
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     NL() { return this.getToken(PIE3Parser.NL, 0); }
@@ -2215,7 +2272,8 @@ export class PolygonsDataContext extends ParserRuleContext {
         }
     }
 }
-export class PolygonListContext extends ParserRuleContext {
+exports.PolygonsDataContext = PolygonsDataContext;
+class PolygonListContext extends ParserRuleContext_1.ParserRuleContext {
     polygon(i) {
         if (i === undefined) {
             return this.getRuleContexts(PolygonContext);
@@ -2251,7 +2309,8 @@ export class PolygonListContext extends ParserRuleContext {
         }
     }
 }
-export class PolygonContext extends ParserRuleContext {
+exports.PolygonListContext = PolygonListContext;
+class PolygonContext extends ParserRuleContext_1.ParserRuleContext {
     INT(i) {
         if (i === undefined) {
             return this.getTokens(PIE3Parser.INT);
@@ -2300,7 +2359,8 @@ export class PolygonContext extends ParserRuleContext {
         }
     }
 }
-export class CornerDataContext extends ParserRuleContext {
+exports.PolygonContext = PolygonContext;
+class CornerDataContext extends ParserRuleContext_1.ParserRuleContext {
     INT(i) {
         if (i === undefined) {
             return this.getTokens(PIE3Parser.INT);
@@ -2336,7 +2396,8 @@ export class CornerDataContext extends ParserRuleContext {
         }
     }
 }
-export class ConnectorDataContext extends ParserRuleContext {
+exports.CornerDataContext = CornerDataContext;
+class ConnectorDataContext extends ParserRuleContext_1.ParserRuleContext {
     CONNECTORS() { return this.getToken(PIE3Parser.CONNECTORS, 0); }
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     NL() { return this.getToken(PIE3Parser.NL, 0); }
@@ -2370,7 +2431,8 @@ export class ConnectorDataContext extends ParserRuleContext {
         }
     }
 }
-export class ConnectorListContext extends ParserRuleContext {
+exports.ConnectorDataContext = ConnectorDataContext;
+class ConnectorListContext extends ParserRuleContext_1.ParserRuleContext {
     connector(i) {
         if (i === undefined) {
             return this.getRuleContexts(ConnectorContext);
@@ -2406,7 +2468,8 @@ export class ConnectorListContext extends ParserRuleContext {
         }
     }
 }
-export class ConnectorContext extends ParserRuleContext {
+exports.ConnectorListContext = ConnectorListContext;
+class ConnectorContext extends ParserRuleContext_1.ParserRuleContext {
     number(i) {
         if (i === undefined) {
             return this.getRuleContexts(NumberContext);
@@ -2444,7 +2507,8 @@ export class ConnectorContext extends ParserRuleContext {
         }
     }
 }
-export class AnimObjectDataContext extends ParserRuleContext {
+exports.ConnectorContext = ConnectorContext;
+class AnimObjectDataContext extends ParserRuleContext_1.ParserRuleContext {
     ANIMOBJECT() { return this.getToken(PIE3Parser.ANIMOBJECT, 0); }
     INT(i) {
         if (i === undefined) {
@@ -2485,7 +2549,8 @@ export class AnimObjectDataContext extends ParserRuleContext {
         }
     }
 }
-export class AnimFrameListContext extends ParserRuleContext {
+exports.AnimObjectDataContext = AnimObjectDataContext;
+class AnimFrameListContext extends ParserRuleContext_1.ParserRuleContext {
     animFrame(i) {
         if (i === undefined) {
             return this.getRuleContexts(AnimFrameContext);
@@ -2521,7 +2586,8 @@ export class AnimFrameListContext extends ParserRuleContext {
         }
     }
 }
-export class AnimFrameContext extends ParserRuleContext {
+exports.AnimFrameListContext = AnimFrameListContext;
+class AnimFrameContext extends ParserRuleContext_1.ParserRuleContext {
     INT() { return this.getToken(PIE3Parser.INT, 0); }
     number(i) {
         if (i === undefined) {
@@ -2560,4 +2626,5 @@ export class AnimFrameContext extends ParserRuleContext {
         }
     }
 }
+exports.AnimFrameContext = AnimFrameContext;
 //# sourceMappingURL=PIE3Parser.js.map

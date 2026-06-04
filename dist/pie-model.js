@@ -1,6 +1,9 @@
-import { parsePIE2 } from "./pie2-model-builder";
-import { parsePIE3 } from "./pie3-model-builder";
-import { parsePIE4 } from "./pie4-model-builder";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PIEModel = void 0;
+const pie2_model_builder_1 = require("./pie2-model-builder");
+const pie3_model_builder_1 = require("./pie3-model-builder");
+const pie4_model_builder_1 = require("./pie4-model-builder");
 function formatNumber(n) {
     // Preserve negative zero so round-tripping a "-0" coordinate stays "-0".
     if (Object.is(n, -0)) {
@@ -8,7 +11,7 @@ function formatNumber(n) {
     }
     return String(n);
 }
-export class PIEModel {
+class PIEModel {
     constructor(header, levels) {
         this.header = header;
         this.levels = levels;
@@ -27,13 +30,13 @@ export class PIEModel {
         let result;
         switch (version) {
             case 2:
-                result = parsePIE2(data);
+                result = (0, pie2_model_builder_1.parsePIE2)(data);
                 break;
             case 3:
-                result = parsePIE3(data);
+                result = (0, pie3_model_builder_1.parsePIE3)(data);
                 break;
             case 4:
-                result = parsePIE4(data);
+                result = (0, pie4_model_builder_1.parsePIE4)(data);
                 break;
             default:
                 throw new Error(`Unsupported PIE version: ${version}.`);
@@ -128,4 +131,5 @@ export class PIEModel {
         return vertexData;
     }
 }
+exports.PIEModel = PIEModel;
 //# sourceMappingURL=pie-model.js.map
