@@ -33,7 +33,10 @@ class TestErrorListener implements ANTLRErrorListener<any> {
   'cybd_run.pie',
   'exbloke.pie',
   'runanim.pie',
-  'drhbod12.pie'
+  'drhbod12.pie',
+  // Real WZ2100 models exercising PIE3 edge cases:
+  'power_module4.pie',  // TEXTURE without width/height
+  'prslvtl1_empty.pie'  // zero-count POINTS / POLYGONS sections
 ]
 .map((name: string) => {
 

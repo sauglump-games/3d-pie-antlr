@@ -54,7 +54,7 @@ eventInfo
     ;
 
 textureInfo
-    : TEXTURE INT STRING INT INT NL
+    : TEXTURE INT STRING (INT INT)? NL
     ;
 
 normalMap
@@ -70,7 +70,7 @@ pointsData
     ;
 
 pointList
-    : point+
+    : point*
     ;
 
 point
@@ -98,7 +98,7 @@ polygonsData
     ;
 
 polygonList
-    : polygon+
+    : polygon*
     ;
 
 polygon
@@ -114,7 +114,7 @@ connectorData
     ;
 
 connectorList
-    : connector+
+    : connector*
     ;
 
 connector

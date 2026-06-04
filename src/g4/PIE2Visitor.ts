@@ -5,6 +5,7 @@ import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 
 import { PieFileContext } from "./PIE2Parser";
 import { TypeSectionContext } from "./PIE2Parser";
+import { EventSectionContext } from "./PIE2Parser";
 import { TextureSectionContext } from "./PIE2Parser";
 import { LevelsSectionContext } from "./PIE2Parser";
 import { LevelSectionContext } from "./PIE2Parser";
@@ -14,6 +15,8 @@ import { PolygonsSectionContext } from "./PIE2Parser";
 import { PolygonContext } from "./PIE2Parser";
 import { ConnectorSectionContext } from "./PIE2Parser";
 import { ConnectorContext } from "./PIE2Parser";
+import { AnimObjectSectionContext } from "./PIE2Parser";
+import { AnimFrameContext } from "./PIE2Parser";
 import { NumberContext } from "./PIE2Parser";
 
 
@@ -38,6 +41,13 @@ export interface PIE2Visitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitTypeSection?: (ctx: TypeSectionContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `PIE2Parser.eventSection`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitEventSection?: (ctx: EventSectionContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `PIE2Parser.textureSection`.
@@ -101,6 +111,20 @@ export interface PIE2Visitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitConnector?: (ctx: ConnectorContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `PIE2Parser.animObjectSection`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitAnimObjectSection?: (ctx: AnimObjectSectionContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `PIE2Parser.animFrame`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitAnimFrame?: (ctx: AnimFrameContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `PIE2Parser.number`.

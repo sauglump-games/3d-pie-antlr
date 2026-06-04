@@ -37,7 +37,12 @@ class TestErrorListener implements ANTLRErrorListener<any> {
   'prslvtl1.pie',
   'prsrhtr4.pie',
   'prsrtrk4.pie',
-  'prsrvtl1.pie'
+  'prsrvtl1.pie',
+  // Real WZ2100 models exercising newer PIE2 features:
+  'blderik.pie',      // EVENT header directive
+  'blderik_anim.pie', // ANIMOBJECT sections
+  'flamfall.pie',     // ANIMOBJECT after polygons
+  'cybdpjmp.pie'      // multiple levels with per-level CONNECTORS
 ]
 .map((name: string) => {
 

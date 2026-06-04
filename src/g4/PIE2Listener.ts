@@ -5,6 +5,7 @@ import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
 import { PieFileContext } from "./PIE2Parser";
 import { TypeSectionContext } from "./PIE2Parser";
+import { EventSectionContext } from "./PIE2Parser";
 import { TextureSectionContext } from "./PIE2Parser";
 import { LevelsSectionContext } from "./PIE2Parser";
 import { LevelSectionContext } from "./PIE2Parser";
@@ -14,6 +15,8 @@ import { PolygonsSectionContext } from "./PIE2Parser";
 import { PolygonContext } from "./PIE2Parser";
 import { ConnectorSectionContext } from "./PIE2Parser";
 import { ConnectorContext } from "./PIE2Parser";
+import { AnimObjectSectionContext } from "./PIE2Parser";
+import { AnimFrameContext } from "./PIE2Parser";
 import { NumberContext } from "./PIE2Parser";
 
 
@@ -43,6 +46,17 @@ export interface PIE2Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitTypeSection?: (ctx: TypeSectionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `PIE2Parser.eventSection`.
+	 * @param ctx the parse tree
+	 */
+	enterEventSection?: (ctx: EventSectionContext) => void;
+	/**
+	 * Exit a parse tree produced by `PIE2Parser.eventSection`.
+	 * @param ctx the parse tree
+	 */
+	exitEventSection?: (ctx: EventSectionContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `PIE2Parser.textureSection`.
@@ -142,6 +156,28 @@ export interface PIE2Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitConnector?: (ctx: ConnectorContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `PIE2Parser.animObjectSection`.
+	 * @param ctx the parse tree
+	 */
+	enterAnimObjectSection?: (ctx: AnimObjectSectionContext) => void;
+	/**
+	 * Exit a parse tree produced by `PIE2Parser.animObjectSection`.
+	 * @param ctx the parse tree
+	 */
+	exitAnimObjectSection?: (ctx: AnimObjectSectionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `PIE2Parser.animFrame`.
+	 * @param ctx the parse tree
+	 */
+	enterAnimFrame?: (ctx: AnimFrameContext) => void;
+	/**
+	 * Exit a parse tree produced by `PIE2Parser.animFrame`.
+	 * @param ctx the parse tree
+	 */
+	exitAnimFrame?: (ctx: AnimFrameContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `PIE2Parser.number`.
