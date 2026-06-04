@@ -1,4 +1,4 @@
-import { test, it, describe, before} from 'node:test'
+import { test, describe, before } from 'node:test'
 import assert from 'node:assert'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -17,7 +17,7 @@ class TestErrorListener implements ANTLRErrorListener<any> {
     line: number,
     charPositionInLine: number,
     msg: string,
-    e: RecognitionException | undefined
+    _e: RecognitionException | undefined
   ): void {
     this.errors.push(`Line ${line}:${charPositionInLine} - ${msg}`);
     // Print relevant info about the offending symbol
@@ -43,9 +43,9 @@ class TestErrorListener implements ANTLRErrorListener<any> {
 
 
   describe(`PIE2Parser can handle ${name}`, () => {
-    var pieFile: PieFileContext;
-    var lexerErrors: TestErrorListener;
-    var parserErrors: TestErrorListener;
+    let pieFile: PieFileContext;
+    let lexerErrors: TestErrorListener;
+    let parserErrors: TestErrorListener;
 
     before(()=>{
       const fixturePath = path.join('test', 'fixtures', 'PIE2', name)
@@ -53,10 +53,8 @@ class TestErrorListener implements ANTLRErrorListener<any> {
       
       // Create the lexer and parser with error listeners
       const inputStream = CharStreams.fromString(input)
-      // @ts-ignore - Bypass constructor type check
       const lexer = new PIE2Lexer(inputStream)
       const tokenStream = new CommonTokenStream(lexer)
-      // @ts-ignore - Bypass constructor type check
       const parser = new PIE2Parser(tokenStream)
       
       // Add custom error listeners

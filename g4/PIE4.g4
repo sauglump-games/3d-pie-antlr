@@ -8,7 +8,7 @@ pieFile
       tcmaskSection*
       levelsSection
       connectorSection?
-      (levelSection* | (number | SCIENTIFIC | FLOAT | INTEGER)*)
+      levelSection*
       EOF
     ;
 
@@ -105,14 +105,17 @@ number
     ;
 
 // Lexer Rules
-INTEGER : [ \t]* '-'?[0-9]+ [ \t]* ;
-FLOAT   : [ \t]* '-'?[0-9]+ ('.'[0-9]+) [ \t]* ;
-SCIENTIFIC : [ \t]* '-'?[0-9]+ ('.'[0-9]+)? ('e' | 'E') ('-' | '+')? [0-9]+ [ \t]* ;
-IDENTIFIER : [ \t]* [a-zA-Z][a-zA-Z0-9_]* [ \t]* ;
-STRING  : [ \t]* [a-zA-Z0-9./#_\-]+ [ \t]* ;
-COMPLEX_STRING : [ \t]* [a-zA-Z0-9./#_\-+]+ [ \t]* ;
-WS_OR_TAB : [ \t]+ ;
-NL      : '\r'? '\n' ;
+//
+// Spaces and tabs are skipped; newlines are significant record terminators.
+// Numeric tokens are pure (no embedded whitespace) — surrounding spacing is
+// handled by the WS skip rule rather than baked into every value token.
+// SCIENTIFIC must precede FLOAT/INTEGER so exponents are not split.
+SCIENTIFIC : '-'? [0-9]+ ('.' [0-9]+)? [eE] [+-]? [0-9]+ ;
+FLOAT   : '-'? [0-9]+ '.' [0-9]+ ;
+INTEGER : '-'? [0-9]+ ;
+IDENTIFIER : [a-zA-Z] [a-zA-Z0-9_]* ;
+STRING  : [a-zA-Z0-9./#_\-]+ ;
+NL      : ('\r'? '\n')+ ;
 WS      : [ \t]+ -> skip ;
-LINE_COMMENT : '//' .*? (NL | EOF) -> skip ;
+LINE_COMMENT : '//' ~[\r\n]* -> skip ;
 COMMENT_TOKEN : '#' ~[\r\n]* ;

@@ -1,12 +1,24 @@
 grammar PIE3;
 
 // Parser Rules
+//
+// Records (points, polygons, connectors, anim frames) are terminated by a
+// newline. Spaces and tabs are skipped by the lexer, but newlines are
+// significant: they are what makes a polygon line unambiguous, since the format
+// gives no in-band marker for where one polygon's UV list ends and the next
+// polygon begins.
 pieFile
     : pieHeader pieBody EOF
     ;
 
 pieHeader
-    : PIE pieVersion typeInfo? interpolateInfo? textureInfo? eventInfo* normalMap? specularMap?
+    : PIE pieVersion NL
+      typeInfo?
+      interpolateInfo?
+      textureInfo?
+      eventInfo*
+      normalMap?
+      specularMap?
     ;
 
 pieBody
@@ -14,7 +26,7 @@ pieBody
     ;
 
 levelsHeader
-    : LEVELS INT
+    : LEVELS INT NL
     ;
 
 levelList
@@ -22,7 +34,7 @@ levelList
     ;
 
 level
-    : LEVEL INT (pointsData | normalsData | polygonsData | connectorData | animObjectData)*
+    : LEVEL INT NL (pointsData | normalsData | polygonsData | connectorData | animObjectData)*
     ;
 
 pieVersion
@@ -30,31 +42,31 @@ pieVersion
     ;
 
 typeInfo
-    : TYPE INT
+    : TYPE INT NL
     ;
 
 interpolateInfo
-    : INTERPOLATE INT
+    : INTERPOLATE INT NL
     ;
 
 eventInfo
-    : EVENT INT STRING
+    : EVENT INT STRING NL
     ;
 
 textureInfo
-    : TEXTURE INT STRING INT INT
+    : TEXTURE INT STRING INT INT NL
     ;
 
 normalMap
-    : NORMALMAP INT STRING
+    : NORMALMAP INT STRING NL
     ;
 
 specularMap
-    : SPECULARMAP INT STRING
+    : SPECULARMAP INT STRING NL
     ;
 
 pointsData
-    : POINTS INT pointList
+    : POINTS INT NL pointList
     ;
 
 pointList
@@ -62,11 +74,11 @@ pointList
     ;
 
 point
-    : number number number
+    : number number number (NL | EOF)
     ;
 
 normalsData
-    : NORMALS INT normalsList
+    : NORMALS INT NL normalsList
     ;
 
 normalsList
@@ -74,7 +86,7 @@ normalsList
     ;
 
 normal
-    : number number number (number number number)* 
+    : number number number (number number number)* (NL | EOF)
     ;
 
 number
@@ -82,7 +94,7 @@ number
     ;
 
 polygonsData
-    : POLYGONS INT polygonList
+    : POLYGONS INT NL polygonList
     ;
 
 polygonList
@@ -90,7 +102,7 @@ polygonList
     ;
 
 polygon
-    : INT INT cornerData (number number)*
+    : INT INT cornerData (number number)* (NL | EOF)
     ;
 
 cornerData
@@ -98,7 +110,7 @@ cornerData
     ;
 
 connectorData
-    : CONNECTORS INT connectorList
+    : CONNECTORS INT NL connectorList
     ;
 
 connectorList
@@ -106,11 +118,11 @@ connectorList
     ;
 
 connector
-    : number number number
+    : number number number (NL | EOF)
     ;
 
 animObjectData
-    : ANIMOBJECT INT INT INT animFrameList
+    : ANIMOBJECT INT INT INT NL animFrameList
     ;
 
 animFrameList
@@ -118,7 +130,7 @@ animFrameList
     ;
 
 animFrame
-    : INT number number number number number number number number number
+    : INT number number number number number number number number number (NL | EOF)
     ;
 
 // Lexer Rules
@@ -147,6 +159,9 @@ NEG_SCI_NUMBER : '-' [0-9]+ ('.' [0-9]+)? [eE][+-]?[0-9]+ ;
 // Allow for strings with hyphens or underscores - must come after INT
 STRING : '"' (~["\r\n])* '"' | [a-zA-Z][a-zA-Z0-9/_.-]* ;
 
-// Skip whitespace and comments
-WS : [ \t\r\n]+ -> skip ;
+// Newlines are significant (record terminators); consecutive newlines and
+// surrounding blank lines collapse into a single token so blank lines are
+// tolerated. Spaces, tabs and comments are skipped.
+NL : ('\r'? '\n')+ ;
+WS : [ \t]+ -> skip ;
 COMMENT : '//' ~[\r\n]* -> skip ;

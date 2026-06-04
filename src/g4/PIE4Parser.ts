@@ -39,17 +39,15 @@ export class PIE4Parser extends Parser {
 	public static readonly POLYGONS_HEADER = 9;
 	public static readonly CONNECTORS_HEADER = 10;
 	public static readonly ANIMOBJECT_HEADER = 11;
-	public static readonly INTEGER = 12;
+	public static readonly SCIENTIFIC = 12;
 	public static readonly FLOAT = 13;
-	public static readonly SCIENTIFIC = 14;
+	public static readonly INTEGER = 14;
 	public static readonly IDENTIFIER = 15;
 	public static readonly STRING = 16;
-	public static readonly COMPLEX_STRING = 17;
-	public static readonly WS_OR_TAB = 18;
-	public static readonly NL = 19;
-	public static readonly WS = 20;
-	public static readonly LINE_COMMENT = 21;
-	public static readonly COMMENT_TOKEN = 22;
+	public static readonly NL = 17;
+	public static readonly WS = 18;
+	public static readonly LINE_COMMENT = 19;
+	public static readonly COMMENT_TOKEN = 20;
 	public static readonly RULE_pieFile = 0;
 	public static readonly RULE_pieHeader = 1;
 	public static readonly RULE_typeSection = 2;
@@ -81,9 +79,8 @@ export class PIE4Parser extends Parser {
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
 		undefined, "PIE_HEADER", "TYPE_HEADER", "INTERPOLATE_HEADER", "TEXTURE_HEADER", 
 		"TCMASK_HEADER", "LEVELS_HEADER", "LEVEL_HEADER", "POINTS_HEADER", "POLYGONS_HEADER", 
-		"CONNECTORS_HEADER", "ANIMOBJECT_HEADER", "INTEGER", "FLOAT", "SCIENTIFIC", 
-		"IDENTIFIER", "STRING", "COMPLEX_STRING", "WS_OR_TAB", "NL", "WS", "LINE_COMMENT", 
-		"COMMENT_TOKEN",
+		"CONNECTORS_HEADER", "ANIMOBJECT_HEADER", "SCIENTIFIC", "FLOAT", "INTEGER", 
+		"IDENTIFIER", "STRING", "NL", "WS", "LINE_COMMENT", "COMMENT_TOKEN",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(PIE4Parser._LITERAL_NAMES, PIE4Parser._SYMBOLIC_NAMES, []);
 
@@ -181,75 +178,21 @@ export class PIE4Parser extends Parser {
 				}
 			}
 
-			this.state = 74;
+			this.state = 62;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 8, this._ctx) ) {
-			case 1:
+			_la = this._input.LA(1);
+			while (_la === PIE4Parser.LEVEL_HEADER) {
 				{
-				this.state = 62;
+				{
+				this.state = 59;
+				this.levelSection();
+				}
+				}
+				this.state = 64;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				while (_la === PIE4Parser.LEVEL_HEADER) {
-					{
-					{
-					this.state = 59;
-					this.levelSection();
-					}
-					}
-					this.state = 64;
-					this._errHandler.sync(this);
-					_la = this._input.LA(1);
-				}
-				}
-				break;
-
-			case 2:
-				{
-				this.state = 71;
-				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.INTEGER) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.SCIENTIFIC))) !== 0)) {
-					{
-					this.state = 69;
-					this._errHandler.sync(this);
-					switch ( this.interpreter.adaptivePredict(this._input, 6, this._ctx) ) {
-					case 1:
-						{
-						this.state = 65;
-						this.number();
-						}
-						break;
-
-					case 2:
-						{
-						this.state = 66;
-						this.match(PIE4Parser.SCIENTIFIC);
-						}
-						break;
-
-					case 3:
-						{
-						this.state = 67;
-						this.match(PIE4Parser.FLOAT);
-						}
-						break;
-
-					case 4:
-						{
-						this.state = 68;
-						this.match(PIE4Parser.INTEGER);
-						}
-						break;
-					}
-					}
-					this.state = 73;
-					this._errHandler.sync(this);
-					_la = this._input.LA(1);
-				}
-				}
-				break;
 			}
-			this.state = 76;
+			this.state = 65;
 			this.match(PIE4Parser.EOF);
 			}
 		}
@@ -274,9 +217,9 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 78;
+			this.state = 67;
 			this.match(PIE4Parser.PIE_HEADER);
-			this.state = 79;
+			this.state = 68;
 			this.match(PIE4Parser.NL);
 			}
 		}
@@ -301,11 +244,11 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 81;
+			this.state = 70;
 			this.match(PIE4Parser.TYPE_HEADER);
-			this.state = 82;
+			this.state = 71;
 			this.number();
-			this.state = 83;
+			this.state = 72;
 			this.match(PIE4Parser.NL);
 			}
 		}
@@ -330,11 +273,11 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 85;
+			this.state = 74;
 			this.match(PIE4Parser.INTERPOLATE_HEADER);
-			this.state = 86;
+			this.state = 75;
 			this.number();
-			this.state = 87;
+			this.state = 76;
 			this.match(PIE4Parser.NL);
 			}
 		}
@@ -360,25 +303,25 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 89;
+			this.state = 78;
 			this.match(PIE4Parser.TEXTURE_HEADER);
-			this.state = 90;
+			this.state = 79;
 			this.number();
-			this.state = 91;
+			this.state = 80;
 			this.match(PIE4Parser.STRING);
-			this.state = 95;
+			this.state = 84;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.INTEGER) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.SCIENTIFIC))) !== 0)) {
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.SCIENTIFIC) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.INTEGER))) !== 0)) {
 				{
-				this.state = 92;
+				this.state = 81;
 				this.number();
-				this.state = 93;
+				this.state = 82;
 				this.number();
 				}
 			}
 
-			this.state = 97;
+			this.state = 86;
 			this.match(PIE4Parser.NL);
 			}
 		}
@@ -403,13 +346,13 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 99;
+			this.state = 88;
 			this.match(PIE4Parser.TCMASK_HEADER);
-			this.state = 100;
+			this.state = 89;
 			this.number();
-			this.state = 101;
+			this.state = 90;
 			this.match(PIE4Parser.STRING);
-			this.state = 102;
+			this.state = 91;
 			this.match(PIE4Parser.NL);
 			}
 		}
@@ -434,13 +377,13 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 104;
+			this.state = 93;
 			this.match(PIE4Parser.LEVELS_HEADER);
-			this.state = 105;
+			this.state = 94;
 			this.number();
-			this.state = 106;
+			this.state = 95;
 			this.match(PIE4Parser.NL);
-			this.state = 107;
+			this.state = 96;
 			this.levelSection();
 			}
 		}
@@ -466,33 +409,33 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 109;
+			this.state = 98;
 			this.match(PIE4Parser.LEVEL_HEADER);
-			this.state = 115;
+			this.state = 104;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.INTEGER) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.SCIENTIFIC) | (1 << PIE4Parser.IDENTIFIER) | (1 << PIE4Parser.STRING))) !== 0)) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.SCIENTIFIC) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.INTEGER) | (1 << PIE4Parser.IDENTIFIER) | (1 << PIE4Parser.STRING))) !== 0)) {
 				{
-				this.state = 113;
+				this.state = 102;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
-				case PIE4Parser.INTEGER:
-				case PIE4Parser.FLOAT:
 				case PIE4Parser.SCIENTIFIC:
+				case PIE4Parser.FLOAT:
+				case PIE4Parser.INTEGER:
 					{
-					this.state = 110;
+					this.state = 99;
 					this.number();
 					}
 					break;
 				case PIE4Parser.IDENTIFIER:
 					{
-					this.state = 111;
+					this.state = 100;
 					this.match(PIE4Parser.IDENTIFIER);
 					}
 					break;
 				case PIE4Parser.STRING:
 					{
-					this.state = 112;
+					this.state = 101;
 					this.match(PIE4Parser.STRING);
 					}
 					break;
@@ -500,27 +443,27 @@ export class PIE4Parser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				this.state = 117;
+				this.state = 106;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 121;
+			this.state = 110;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === PIE4Parser.COMMENT_TOKEN) {
 				{
 				{
-				this.state = 118;
+				this.state = 107;
 				this.match(PIE4Parser.COMMENT_TOKEN);
 				}
 				}
-				this.state = 123;
+				this.state = 112;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 124;
+			this.state = 113;
 			this.match(PIE4Parser.NL);
-			this.state = 125;
+			this.state = 114;
 			this.subLevelContent();
 			}
 		}
@@ -546,23 +489,23 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 131;
+			this.state = 120;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === PIE4Parser.TYPE_HEADER || _la === PIE4Parser.TEXTURE_HEADER) {
 				{
-				this.state = 129;
+				this.state = 118;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
 				case PIE4Parser.TYPE_HEADER:
 					{
-					this.state = 127;
+					this.state = 116;
 					this.typeSection();
 					}
 					break;
 				case PIE4Parser.TEXTURE_HEADER:
 					{
-					this.state = 128;
+					this.state = 117;
 					this.textureSection();
 					}
 					break;
@@ -570,35 +513,35 @@ export class PIE4Parser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				this.state = 133;
+				this.state = 122;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 134;
+			this.state = 123;
 			this.pointsSection();
-			this.state = 135;
+			this.state = 124;
 			this.polygonsSection();
-			this.state = 142;
+			this.state = 131;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === PIE4Parser.ANIMOBJECT_HEADER) {
 				{
 				{
-				this.state = 136;
+				this.state = 125;
 				this.animObjectSection();
-				this.state = 138;
+				this.state = 127;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === PIE4Parser.POLYGONS_HEADER) {
 					{
-					this.state = 137;
+					this.state = 126;
 					this.polygonsSection();
 					}
 				}
 
 				}
 				}
-				this.state = 144;
+				this.state = 133;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
@@ -626,26 +569,26 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 145;
+			this.state = 134;
 			this.match(PIE4Parser.POINTS_HEADER);
-			this.state = 146;
+			this.state = 135;
 			this.number();
-			this.state = 147;
+			this.state = 136;
 			this.match(PIE4Parser.NL);
-			this.state = 149;
+			this.state = 138;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			do {
 				{
 				{
-				this.state = 148;
+				this.state = 137;
 				this.pointCoordinate();
 				}
 				}
-				this.state = 151;
+				this.state = 140;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.INTEGER) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.SCIENTIFIC))) !== 0));
+			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.SCIENTIFIC) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.INTEGER))) !== 0));
 			}
 		}
 		catch (re) {
@@ -669,13 +612,13 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 153;
+			this.state = 142;
 			this.number();
-			this.state = 154;
+			this.state = 143;
 			this.number();
-			this.state = 155;
+			this.state = 144;
 			this.number();
-			this.state = 156;
+			this.state = 145;
 			this.match(PIE4Parser.NL);
 			}
 		}
@@ -697,36 +640,30 @@ export class PIE4Parser extends Parser {
 	public polygonsSection(): PolygonsSectionContext {
 		let _localctx: PolygonsSectionContext = new PolygonsSectionContext(this._ctx, this.state);
 		this.enterRule(_localctx, 22, PIE4Parser.RULE_polygonsSection);
+		let _la: number;
 		try {
-			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 158;
+			this.state = 147;
 			this.match(PIE4Parser.POLYGONS_HEADER);
-			this.state = 159;
+			this.state = 148;
 			this.number();
-			this.state = 160;
+			this.state = 149;
 			this.match(PIE4Parser.NL);
-			this.state = 162;
+			this.state = 151;
 			this._errHandler.sync(this);
-			_alt = 1;
+			_la = this._input.LA(1);
 			do {
-				switch (_alt) {
-				case 1:
-					{
-					{
-					this.state = 161;
-					this.polygon();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				{
+				this.state = 150;
+				this.polygon();
 				}
-				this.state = 164;
+				}
+				this.state = 153;
 				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 18, this._ctx);
-			} while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER);
+				_la = this._input.LA(1);
+			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.SCIENTIFIC) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.INTEGER))) !== 0));
 			}
 		}
 		catch (re) {
@@ -749,31 +686,31 @@ export class PIE4Parser extends Parser {
 		this.enterRule(_localctx, 24, PIE4Parser.RULE_polygon);
 		let _la: number;
 		try {
-			this.state = 187;
+			this.state = 176;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 21, this._ctx) ) {
+			switch ( this.interpreter.adaptivePredict(this._input, 18, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 166;
+				this.state = 155;
 				this.number();
-				this.state = 167;
+				this.state = 156;
 				this.number();
-				this.state = 169;
+				this.state = 158;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				do {
 					{
 					{
-					this.state = 168;
+					this.state = 157;
 					this.number();
 					}
 					}
-					this.state = 171;
+					this.state = 160;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
-				} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.INTEGER) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.SCIENTIFIC))) !== 0));
-				this.state = 173;
+				} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.SCIENTIFIC) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.INTEGER))) !== 0));
+				this.state = 162;
 				_la = this._input.LA(1);
 				if (!(_la === PIE4Parser.EOF || _la === PIE4Parser.NL)) {
 				this._errHandler.recoverInline(this);
@@ -791,31 +728,31 @@ export class PIE4Parser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 175;
+				this.state = 164;
 				this.number();
-				this.state = 176;
+				this.state = 165;
 				this.number();
-				this.state = 177;
+				this.state = 166;
 				this.number();
-				this.state = 178;
+				this.state = 167;
 				this.number();
-				this.state = 179;
+				this.state = 168;
 				this.number();
-				this.state = 181;
+				this.state = 170;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				do {
 					{
 					{
-					this.state = 180;
+					this.state = 169;
 					this.number();
 					}
 					}
-					this.state = 183;
+					this.state = 172;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
-				} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.INTEGER) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.SCIENTIFIC))) !== 0));
-				this.state = 185;
+				} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.SCIENTIFIC) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.INTEGER))) !== 0));
+				this.state = 174;
 				_la = this._input.LA(1);
 				if (!(_la === PIE4Parser.EOF || _la === PIE4Parser.NL)) {
 				this._errHandler.recoverInline(this);
@@ -849,40 +786,34 @@ export class PIE4Parser extends Parser {
 	public animObjectSection(): AnimObjectSectionContext {
 		let _localctx: AnimObjectSectionContext = new AnimObjectSectionContext(this._ctx, this.state);
 		this.enterRule(_localctx, 26, PIE4Parser.RULE_animObjectSection);
+		let _la: number;
 		try {
-			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 189;
+			this.state = 178;
 			this.match(PIE4Parser.ANIMOBJECT_HEADER);
-			this.state = 190;
+			this.state = 179;
 			this.number();
-			this.state = 191;
+			this.state = 180;
 			this.number();
-			this.state = 192;
+			this.state = 181;
 			this.number();
-			this.state = 193;
+			this.state = 182;
 			this.match(PIE4Parser.NL);
-			this.state = 195;
+			this.state = 184;
 			this._errHandler.sync(this);
-			_alt = 1;
+			_la = this._input.LA(1);
 			do {
-				switch (_alt) {
-				case 1:
-					{
-					{
-					this.state = 194;
-					this.animFrame();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				{
+				this.state = 183;
+				this.animFrame();
 				}
-				this.state = 197;
+				}
+				this.state = 186;
 				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 22, this._ctx);
-			} while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER);
+				_la = this._input.LA(1);
+			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.SCIENTIFIC) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.INTEGER))) !== 0));
 			}
 		}
 		catch (re) {
@@ -907,27 +838,27 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 199;
+			this.state = 188;
 			this.number();
-			this.state = 200;
+			this.state = 189;
 			this.number();
-			this.state = 201;
+			this.state = 190;
 			this.number();
-			this.state = 202;
+			this.state = 191;
 			this.number();
-			this.state = 203;
+			this.state = 192;
 			this.number();
-			this.state = 204;
+			this.state = 193;
 			this.number();
-			this.state = 205;
+			this.state = 194;
 			this.number();
-			this.state = 206;
+			this.state = 195;
 			this.number();
-			this.state = 207;
+			this.state = 196;
 			this.number();
-			this.state = 208;
+			this.state = 197;
 			this.number();
-			this.state = 209;
+			this.state = 198;
 			_la = this._input.LA(1);
 			if (!(_la === PIE4Parser.EOF || _la === PIE4Parser.NL)) {
 			this._errHandler.recoverInline(this);
@@ -959,36 +890,30 @@ export class PIE4Parser extends Parser {
 	public connectorSection(): ConnectorSectionContext {
 		let _localctx: ConnectorSectionContext = new ConnectorSectionContext(this._ctx, this.state);
 		this.enterRule(_localctx, 30, PIE4Parser.RULE_connectorSection);
+		let _la: number;
 		try {
-			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 211;
+			this.state = 200;
 			this.match(PIE4Parser.CONNECTORS_HEADER);
-			this.state = 212;
+			this.state = 201;
 			this.number();
-			this.state = 213;
+			this.state = 202;
 			this.match(PIE4Parser.NL);
-			this.state = 215;
+			this.state = 204;
 			this._errHandler.sync(this);
-			_alt = 1;
+			_la = this._input.LA(1);
 			do {
-				switch (_alt) {
-				case 1:
-					{
-					{
-					this.state = 214;
-					this.connector();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				{
+				this.state = 203;
+				this.connector();
 				}
-				this.state = 217;
+				}
+				this.state = 206;
 				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 23, this._ctx);
-			} while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER);
+				_la = this._input.LA(1);
+			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.SCIENTIFIC) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.INTEGER))) !== 0));
 			}
 		}
 		catch (re) {
@@ -1013,13 +938,13 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 219;
+			this.state = 208;
 			this.number();
-			this.state = 220;
+			this.state = 209;
 			this.number();
-			this.state = 221;
+			this.state = 210;
 			this.number();
-			this.state = 222;
+			this.state = 211;
 			_la = this._input.LA(1);
 			if (!(_la === PIE4Parser.EOF || _la === PIE4Parser.NL)) {
 			this._errHandler.recoverInline(this);
@@ -1055,9 +980,9 @@ export class PIE4Parser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 224;
+			this.state = 213;
 			_la = this._input.LA(1);
-			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.INTEGER) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.SCIENTIFIC))) !== 0))) {
+			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << PIE4Parser.SCIENTIFIC) | (1 << PIE4Parser.FLOAT) | (1 << PIE4Parser.INTEGER))) !== 0))) {
 			this._errHandler.recoverInline(this);
 			} else {
 				if (this._input.LA(1) === Token.EOF) {
@@ -1085,102 +1010,96 @@ export class PIE4Parser extends Parser {
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\x18\xE5\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\x16\xDA\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
 		"\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x04\x11\t\x11\x04\x12\t\x12\x04" +
 		"\x13\t\x13\x03\x02\x03\x02\x05\x02)\n\x02\x03\x02\x05\x02,\n\x02\x03\x02" +
 		"\x07\x02/\n\x02\f\x02\x0E\x022\v\x02\x03\x02\x07\x025\n\x02\f\x02\x0E" +
 		"\x028\v\x02\x03\x02\x03\x02\x05\x02<\n\x02\x03\x02\x07\x02?\n\x02\f\x02" +
-		"\x0E\x02B\v\x02\x03\x02\x03\x02\x03\x02\x03\x02\x07\x02H\n\x02\f\x02\x0E" +
-		"\x02K\v\x02\x05\x02M\n\x02\x03\x02\x03\x02\x03\x03\x03\x03\x03\x03\x03" +
-		"\x04\x03\x04\x03\x04\x03\x04\x03\x05\x03\x05\x03\x05\x03\x05\x03\x06\x03" +
-		"\x06\x03\x06\x03\x06\x03\x06\x03\x06\x05\x06b\n\x06\x03\x06\x03\x06\x03" +
-		"\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\b\x03\b\x03\b\x03\b\x03\b\x03" +
-		"\t\x03\t\x03\t\x03\t\x07\tt\n\t\f\t\x0E\tw\v\t\x03\t\x07\tz\n\t\f\t\x0E" +
-		"\t}\v\t\x03\t\x03\t\x03\t\x03\n\x03\n\x07\n\x84\n\n\f\n\x0E\n\x87\v\n" +
-		"\x03\n\x03\n\x03\n\x03\n\x05\n\x8D\n\n\x07\n\x8F\n\n\f\n\x0E\n\x92\v\n" +
-		"\x03\v\x03\v\x03\v\x03\v\x06\v\x98\n\v\r\v\x0E\v\x99\x03\f\x03\f\x03\f" +
-		"\x03\f\x03\f\x03\r\x03\r\x03\r\x03\r\x06\r\xA5\n\r\r\r\x0E\r\xA6\x03\x0E" +
-		"\x03\x0E\x03\x0E\x06\x0E\xAC\n\x0E\r\x0E\x0E\x0E\xAD\x03\x0E\x03\x0E\x03" +
-		"\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x06\x0E\xB8\n\x0E\r\x0E\x0E" +
-		"\x0E\xB9\x03\x0E\x03\x0E\x05\x0E\xBE\n\x0E\x03\x0F\x03\x0F\x03\x0F\x03" +
-		"\x0F\x03\x0F\x03\x0F\x06\x0F\xC6\n\x0F\r\x0F\x0E\x0F\xC7\x03\x10\x03\x10" +
-		"\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10" +
-		"\x03\x10\x03\x11\x03\x11\x03\x11\x03\x11\x06\x11\xDA\n\x11\r\x11\x0E\x11" +
-		"\xDB\x03\x12\x03\x12\x03\x12\x03\x12\x03\x12\x03\x13\x03\x13\x03\x13\x02" +
-		"\x02\x02\x14\x02\x02\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02" +
-		"\x12\x02\x14\x02\x16\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 \x02\"\x02$\x02" +
-		"\x02\x04\x03\x03\x15\x15\x03\x02\x0E\x10\x02\xED\x02&\x03\x02\x02\x02" +
-		"\x04P\x03\x02\x02\x02\x06S\x03\x02\x02\x02\bW\x03\x02\x02\x02\n[\x03\x02" +
-		"\x02\x02\fe\x03\x02\x02\x02\x0Ej\x03\x02\x02\x02\x10o\x03\x02\x02\x02" +
-		"\x12\x85\x03\x02\x02\x02\x14\x93\x03\x02\x02\x02\x16\x9B\x03\x02\x02\x02" +
-		"\x18\xA0\x03\x02\x02\x02\x1A\xBD\x03\x02\x02\x02\x1C\xBF\x03\x02\x02\x02" +
-		"\x1E\xC9\x03\x02\x02\x02 \xD5\x03\x02\x02\x02\"\xDD\x03\x02\x02\x02$\xE2" +
-		"\x03\x02\x02\x02&(\x05\x04\x03\x02\')\x05\x06\x04\x02(\'\x03\x02\x02\x02" +
-		"()\x03\x02\x02\x02)+\x03\x02\x02\x02*,\x05\b\x05\x02+*\x03\x02\x02\x02" +
-		"+,\x03\x02\x02\x02,0\x03\x02\x02\x02-/\x05\n\x06\x02.-\x03\x02\x02\x02" +
-		"/2\x03\x02\x02\x020.\x03\x02\x02\x0201\x03\x02\x02\x0216\x03\x02\x02\x02" +
-		"20\x03\x02\x02\x0235\x05\f\x07\x0243\x03\x02\x02\x0258\x03\x02\x02\x02" +
-		"64\x03\x02\x02\x0267\x03\x02\x02\x0279\x03\x02\x02\x0286\x03\x02\x02\x02" +
-		"9;\x05\x0E\b\x02:<\x05 \x11\x02;:\x03\x02\x02\x02;<\x03\x02\x02\x02<L" +
-		"\x03\x02\x02\x02=?\x05\x10\t\x02>=\x03\x02\x02\x02?B\x03\x02\x02\x02@" +
-		">\x03\x02\x02\x02@A\x03\x02\x02\x02AM\x03\x02\x02\x02B@\x03\x02\x02\x02" +
-		"CH\x05$\x13\x02DH\x07\x10\x02\x02EH\x07\x0F\x02\x02FH\x07\x0E\x02\x02" +
-		"GC\x03\x02\x02\x02GD\x03\x02\x02\x02GE\x03\x02\x02\x02GF\x03\x02\x02\x02" +
-		"HK\x03\x02\x02\x02IG\x03\x02\x02\x02IJ\x03\x02\x02\x02JM\x03\x02\x02\x02" +
-		"KI\x03\x02\x02\x02L@\x03\x02\x02\x02LI\x03\x02\x02\x02MN\x03\x02\x02\x02" +
-		"NO\x07\x02\x02\x03O\x03\x03\x02\x02\x02PQ\x07\x03\x02\x02QR\x07\x15\x02" +
-		"\x02R\x05\x03\x02\x02\x02ST\x07\x04\x02\x02TU\x05$\x13\x02UV\x07\x15\x02" +
-		"\x02V\x07\x03\x02\x02\x02WX\x07\x05\x02\x02XY\x05$\x13\x02YZ\x07\x15\x02" +
-		"\x02Z\t\x03\x02\x02\x02[\\\x07\x06\x02\x02\\]\x05$\x13\x02]a\x07\x12\x02" +
-		"\x02^_\x05$\x13\x02_`\x05$\x13\x02`b\x03\x02\x02\x02a^\x03\x02\x02\x02" +
-		"ab\x03\x02\x02\x02bc\x03\x02\x02\x02cd\x07\x15\x02\x02d\v\x03\x02\x02" +
-		"\x02ef\x07\x07\x02\x02fg\x05$\x13\x02gh\x07\x12\x02\x02hi\x07\x15\x02" +
-		"\x02i\r\x03\x02\x02\x02jk\x07\b\x02\x02kl\x05$\x13\x02lm\x07\x15\x02\x02" +
-		"mn\x05\x10\t\x02n\x0F\x03\x02\x02\x02ou\x07\t\x02\x02pt\x05$\x13\x02q" +
-		"t\x07\x11\x02\x02rt\x07\x12\x02\x02sp\x03\x02\x02\x02sq\x03\x02\x02\x02" +
-		"sr\x03\x02\x02\x02tw\x03\x02\x02\x02us\x03\x02\x02\x02uv\x03\x02\x02\x02" +
-		"v{\x03\x02\x02\x02wu\x03\x02\x02\x02xz\x07\x18\x02\x02yx\x03\x02\x02\x02" +
-		"z}\x03\x02\x02\x02{y\x03\x02\x02\x02{|\x03\x02\x02\x02|~\x03\x02\x02\x02" +
-		"}{\x03\x02\x02\x02~\x7F\x07\x15\x02\x02\x7F\x80\x05\x12\n\x02\x80\x11" +
-		"\x03\x02\x02\x02\x81\x84\x05\x06\x04\x02\x82\x84\x05\n\x06\x02\x83\x81" +
-		"\x03\x02\x02\x02\x83\x82\x03\x02\x02\x02\x84\x87\x03\x02\x02\x02\x85\x83" +
-		"\x03\x02\x02\x02\x85\x86\x03\x02\x02\x02\x86\x88\x03\x02\x02\x02\x87\x85" +
-		"\x03\x02\x02\x02\x88\x89\x05\x14\v\x02\x89\x90\x05\x18\r\x02\x8A\x8C\x05" +
-		"\x1C\x0F\x02\x8B\x8D\x05\x18\r\x02\x8C\x8B\x03\x02\x02\x02\x8C\x8D\x03" +
-		"\x02\x02\x02\x8D\x8F\x03\x02\x02\x02\x8E\x8A\x03\x02\x02\x02\x8F\x92\x03" +
-		"\x02\x02\x02\x90\x8E\x03\x02\x02\x02\x90\x91\x03\x02\x02\x02\x91\x13\x03" +
-		"\x02\x02\x02\x92\x90\x03\x02\x02\x02\x93\x94\x07\n\x02\x02\x94\x95\x05" +
-		"$\x13\x02\x95\x97\x07\x15\x02\x02\x96\x98\x05\x16\f\x02\x97\x96\x03\x02" +
-		"\x02\x02\x98\x99\x03\x02\x02\x02\x99\x97\x03\x02\x02\x02\x99\x9A\x03\x02" +
-		"\x02\x02\x9A\x15\x03\x02\x02\x02\x9B\x9C\x05$\x13\x02\x9C\x9D\x05$\x13" +
-		"\x02\x9D\x9E\x05$\x13\x02\x9E\x9F\x07\x15\x02\x02\x9F\x17\x03\x02\x02" +
-		"\x02\xA0\xA1\x07\v\x02\x02\xA1\xA2\x05$\x13\x02\xA2\xA4\x07\x15\x02\x02" +
-		"\xA3\xA5\x05\x1A\x0E\x02\xA4\xA3\x03\x02\x02\x02\xA5\xA6\x03\x02\x02\x02" +
-		"\xA6\xA4\x03\x02\x02\x02\xA6\xA7\x03\x02\x02\x02\xA7\x19\x03\x02\x02\x02" +
-		"\xA8\xA9\x05$\x13\x02\xA9\xAB\x05$\x13\x02\xAA\xAC\x05$\x13\x02\xAB\xAA" +
-		"\x03\x02\x02\x02\xAC\xAD\x03\x02\x02\x02\xAD\xAB\x03\x02\x02\x02\xAD\xAE" +
-		"\x03\x02\x02\x02\xAE\xAF\x03\x02\x02\x02\xAF\xB0\t\x02\x02\x02\xB0\xBE" +
-		"\x03\x02\x02\x02\xB1\xB2\x05$\x13\x02\xB2\xB3\x05$\x13\x02\xB3\xB4\x05" +
-		"$\x13\x02\xB4\xB5\x05$\x13\x02\xB5\xB7\x05$\x13\x02\xB6\xB8\x05$\x13\x02" +
-		"\xB7\xB6\x03\x02\x02\x02\xB8\xB9\x03\x02\x02\x02\xB9\xB7\x03\x02\x02\x02" +
-		"\xB9\xBA\x03\x02\x02\x02\xBA\xBB\x03\x02\x02\x02\xBB\xBC\t\x02\x02\x02" +
-		"\xBC\xBE\x03\x02\x02\x02\xBD\xA8\x03\x02\x02\x02\xBD\xB1\x03\x02\x02\x02" +
-		"\xBE\x1B\x03\x02\x02\x02\xBF\xC0\x07\r\x02\x02\xC0\xC1\x05$\x13\x02\xC1" +
-		"\xC2\x05$\x13\x02\xC2\xC3\x05$\x13\x02\xC3\xC5\x07\x15\x02\x02\xC4\xC6" +
-		"\x05\x1E\x10\x02\xC5\xC4\x03\x02\x02\x02\xC6\xC7\x03\x02\x02\x02\xC7\xC5" +
-		"\x03\x02\x02\x02\xC7\xC8\x03\x02\x02\x02\xC8\x1D\x03\x02\x02\x02\xC9\xCA" +
-		"\x05$\x13\x02\xCA\xCB\x05$\x13\x02\xCB\xCC\x05$\x13\x02\xCC\xCD\x05$\x13" +
-		"\x02\xCD\xCE\x05$\x13\x02\xCE\xCF\x05$\x13\x02\xCF\xD0\x05$\x13\x02\xD0" +
-		"\xD1\x05$\x13\x02\xD1\xD2\x05$\x13\x02\xD2\xD3\x05$\x13\x02\xD3\xD4\t" +
-		"\x02\x02\x02\xD4\x1F\x03\x02\x02\x02\xD5\xD6\x07\f\x02\x02\xD6\xD7\x05" +
-		"$\x13\x02\xD7\xD9\x07\x15\x02\x02\xD8\xDA\x05\"\x12\x02\xD9\xD8\x03\x02" +
-		"\x02\x02\xDA\xDB\x03\x02\x02\x02\xDB\xD9\x03\x02\x02\x02\xDB\xDC\x03\x02" +
-		"\x02\x02\xDC!\x03\x02\x02\x02\xDD\xDE\x05$\x13\x02\xDE\xDF\x05$\x13\x02" +
-		"\xDF\xE0\x05$\x13\x02\xE0\xE1\t\x02\x02\x02\xE1#\x03\x02\x02\x02\xE2\xE3" +
-		"\t\x03\x02\x02\xE3%\x03\x02\x02\x02\x1A(+06;@GILasu{\x83\x85\x8C\x90\x99" +
-		"\xA6\xAD\xB9\xBD\xC7\xDB";
+		"\x0E\x02B\v\x02\x03\x02\x03\x02\x03\x03\x03\x03\x03\x03\x03\x04\x03\x04" +
+		"\x03\x04\x03\x04\x03\x05\x03\x05\x03\x05\x03\x05\x03\x06\x03\x06\x03\x06" +
+		"\x03\x06\x03\x06\x03\x06\x05\x06W\n\x06\x03\x06\x03\x06\x03\x07\x03\x07" +
+		"\x03\x07\x03\x07\x03\x07\x03\b\x03\b\x03\b\x03\b\x03\b\x03\t\x03\t\x03" +
+		"\t\x03\t\x07\ti\n\t\f\t\x0E\tl\v\t\x03\t\x07\to\n\t\f\t\x0E\tr\v\t\x03" +
+		"\t\x03\t\x03\t\x03\n\x03\n\x07\ny\n\n\f\n\x0E\n|\v\n\x03\n\x03\n\x03\n" +
+		"\x03\n\x05\n\x82\n\n\x07\n\x84\n\n\f\n\x0E\n\x87\v\n\x03\v\x03\v\x03\v" +
+		"\x03\v\x06\v\x8D\n\v\r\v\x0E\v\x8E\x03\f\x03\f\x03\f\x03\f\x03\f\x03\r" +
+		"\x03\r\x03\r\x03\r\x06\r\x9A\n\r\r\r\x0E\r\x9B\x03\x0E\x03\x0E\x03\x0E" +
+		"\x06\x0E\xA1\n\x0E\r\x0E\x0E\x0E\xA2\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03" +
+		"\x0E\x03\x0E\x03\x0E\x03\x0E\x06\x0E\xAD\n\x0E\r\x0E\x0E\x0E\xAE\x03\x0E" +
+		"\x03\x0E\x05\x0E\xB3\n\x0E\x03\x0F\x03\x0F\x03\x0F\x03\x0F\x03\x0F\x03" +
+		"\x0F\x06\x0F\xBB\n\x0F\r\x0F\x0E\x0F\xBC\x03\x10\x03\x10\x03\x10\x03\x10" +
+		"\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x11" +
+		"\x03\x11\x03\x11\x03\x11\x06\x11\xCF\n\x11\r\x11\x0E\x11\xD0\x03\x12\x03" +
+		"\x12\x03\x12\x03\x12\x03\x12\x03\x13\x03\x13\x03\x13\x02\x02\x02\x14\x02" +
+		"\x02\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02" +
+		"\x16\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 \x02\"\x02$\x02\x02\x04\x03\x03" +
+		"\x13\x13\x03\x02\x0E\x10\x02\xDD\x02&\x03\x02\x02\x02\x04E\x03\x02\x02" +
+		"\x02\x06H\x03\x02\x02\x02\bL\x03\x02\x02\x02\nP\x03\x02\x02\x02\fZ\x03" +
+		"\x02\x02\x02\x0E_\x03\x02\x02\x02\x10d\x03\x02\x02\x02\x12z\x03\x02\x02" +
+		"\x02\x14\x88\x03\x02\x02\x02\x16\x90\x03\x02\x02\x02\x18\x95\x03\x02\x02" +
+		"\x02\x1A\xB2\x03\x02\x02\x02\x1C\xB4\x03\x02\x02\x02\x1E\xBE\x03\x02\x02" +
+		"\x02 \xCA\x03\x02\x02\x02\"\xD2\x03\x02\x02\x02$\xD7\x03\x02\x02\x02&" +
+		"(\x05\x04\x03\x02\')\x05\x06\x04\x02(\'\x03\x02\x02\x02()\x03\x02\x02" +
+		"\x02)+\x03\x02\x02\x02*,\x05\b\x05\x02+*\x03\x02\x02\x02+,\x03\x02\x02" +
+		"\x02,0\x03\x02\x02\x02-/\x05\n\x06\x02.-\x03\x02\x02\x02/2\x03\x02\x02" +
+		"\x020.\x03\x02\x02\x0201\x03\x02\x02\x0216\x03\x02\x02\x0220\x03\x02\x02" +
+		"\x0235\x05\f\x07\x0243\x03\x02\x02\x0258\x03\x02\x02\x0264\x03\x02\x02" +
+		"\x0267\x03\x02\x02\x0279\x03\x02\x02\x0286\x03\x02\x02\x029;\x05\x0E\b" +
+		"\x02:<\x05 \x11\x02;:\x03\x02\x02\x02;<\x03\x02\x02\x02<@\x03\x02\x02" +
+		"\x02=?\x05\x10\t\x02>=\x03\x02\x02\x02?B\x03\x02\x02\x02@>\x03\x02\x02" +
+		"\x02@A\x03\x02\x02\x02AC\x03\x02\x02\x02B@\x03\x02\x02\x02CD\x07\x02\x02" +
+		"\x03D\x03\x03\x02\x02\x02EF\x07\x03\x02\x02FG\x07\x13\x02\x02G\x05\x03" +
+		"\x02\x02\x02HI\x07\x04\x02\x02IJ\x05$\x13\x02JK\x07\x13\x02\x02K\x07\x03" +
+		"\x02\x02\x02LM\x07\x05\x02\x02MN\x05$\x13\x02NO\x07\x13\x02\x02O\t\x03" +
+		"\x02\x02\x02PQ\x07\x06\x02\x02QR\x05$\x13\x02RV\x07\x12\x02\x02ST\x05" +
+		"$\x13\x02TU\x05$\x13\x02UW\x03\x02\x02\x02VS\x03\x02\x02\x02VW\x03\x02" +
+		"\x02\x02WX\x03\x02\x02\x02XY\x07\x13\x02\x02Y\v\x03\x02\x02\x02Z[\x07" +
+		"\x07\x02\x02[\\\x05$\x13\x02\\]\x07\x12\x02\x02]^\x07\x13\x02\x02^\r\x03" +
+		"\x02\x02\x02_`\x07\b\x02\x02`a\x05$\x13\x02ab\x07\x13\x02\x02bc\x05\x10" +
+		"\t\x02c\x0F\x03\x02\x02\x02dj\x07\t\x02\x02ei\x05$\x13\x02fi\x07\x11\x02" +
+		"\x02gi\x07\x12\x02\x02he\x03\x02\x02\x02hf\x03\x02\x02\x02hg\x03\x02\x02" +
+		"\x02il\x03\x02\x02\x02jh\x03\x02\x02\x02jk\x03\x02\x02\x02kp\x03\x02\x02" +
+		"\x02lj\x03\x02\x02\x02mo\x07\x16\x02\x02nm\x03\x02\x02\x02or\x03\x02\x02" +
+		"\x02pn\x03\x02\x02\x02pq\x03\x02\x02\x02qs\x03\x02\x02\x02rp\x03\x02\x02" +
+		"\x02st\x07\x13\x02\x02tu\x05\x12\n\x02u\x11\x03\x02\x02\x02vy\x05\x06" +
+		"\x04\x02wy\x05\n\x06\x02xv\x03\x02\x02\x02xw\x03\x02\x02\x02y|\x03\x02" +
+		"\x02\x02zx\x03\x02\x02\x02z{\x03\x02\x02\x02{}\x03\x02\x02\x02|z\x03\x02" +
+		"\x02\x02}~\x05\x14\v\x02~\x85\x05\x18\r\x02\x7F\x81\x05\x1C\x0F\x02\x80" +
+		"\x82\x05\x18\r\x02\x81\x80\x03\x02\x02\x02\x81\x82\x03\x02\x02\x02\x82" +
+		"\x84\x03\x02\x02\x02\x83\x7F\x03\x02\x02\x02\x84\x87\x03\x02\x02\x02\x85" +
+		"\x83\x03\x02\x02\x02\x85\x86\x03\x02\x02\x02\x86\x13\x03\x02\x02\x02\x87" +
+		"\x85\x03\x02\x02\x02\x88\x89\x07\n\x02\x02\x89\x8A\x05$\x13\x02\x8A\x8C" +
+		"\x07\x13\x02\x02\x8B\x8D\x05\x16\f\x02\x8C\x8B\x03\x02\x02\x02\x8D\x8E" +
+		"\x03\x02\x02\x02\x8E\x8C\x03\x02\x02\x02\x8E\x8F\x03\x02\x02\x02\x8F\x15" +
+		"\x03\x02\x02\x02\x90\x91\x05$\x13\x02\x91\x92\x05$\x13\x02\x92\x93\x05" +
+		"$\x13\x02\x93\x94\x07\x13\x02\x02\x94\x17\x03\x02\x02\x02\x95\x96\x07" +
+		"\v\x02\x02\x96\x97\x05$\x13\x02\x97\x99\x07\x13\x02\x02\x98\x9A\x05\x1A" +
+		"\x0E\x02\x99\x98\x03\x02\x02\x02\x9A\x9B\x03\x02\x02\x02\x9B\x99\x03\x02" +
+		"\x02\x02\x9B\x9C\x03\x02\x02\x02\x9C\x19\x03\x02\x02\x02\x9D\x9E\x05$" +
+		"\x13\x02\x9E\xA0\x05$\x13\x02\x9F\xA1\x05$\x13\x02\xA0\x9F\x03\x02\x02" +
+		"\x02\xA1\xA2\x03\x02\x02\x02\xA2\xA0\x03\x02\x02\x02\xA2\xA3\x03\x02\x02" +
+		"\x02\xA3\xA4\x03\x02\x02\x02\xA4\xA5\t\x02\x02\x02\xA5\xB3\x03\x02\x02" +
+		"\x02\xA6\xA7\x05$\x13\x02\xA7\xA8\x05$\x13\x02\xA8\xA9\x05$\x13\x02\xA9" +
+		"\xAA\x05$\x13\x02\xAA\xAC\x05$\x13\x02\xAB\xAD\x05$\x13\x02\xAC\xAB\x03" +
+		"\x02\x02\x02\xAD\xAE\x03\x02\x02\x02\xAE\xAC\x03\x02\x02\x02\xAE\xAF\x03" +
+		"\x02\x02\x02\xAF\xB0\x03\x02\x02\x02\xB0\xB1\t\x02\x02\x02\xB1\xB3\x03" +
+		"\x02\x02\x02\xB2\x9D\x03\x02\x02\x02\xB2\xA6\x03\x02\x02\x02\xB3\x1B\x03" +
+		"\x02\x02\x02\xB4\xB5\x07\r\x02\x02\xB5\xB6\x05$\x13\x02\xB6\xB7\x05$\x13" +
+		"\x02\xB7\xB8\x05$\x13\x02\xB8\xBA\x07\x13\x02\x02\xB9\xBB\x05\x1E\x10" +
+		"\x02\xBA\xB9\x03\x02\x02\x02\xBB\xBC\x03\x02\x02\x02\xBC\xBA\x03\x02\x02" +
+		"\x02\xBC\xBD\x03\x02\x02\x02\xBD\x1D\x03\x02\x02\x02\xBE\xBF\x05$\x13" +
+		"\x02\xBF\xC0\x05$\x13\x02\xC0\xC1\x05$\x13\x02\xC1\xC2\x05$\x13\x02\xC2" +
+		"\xC3\x05$\x13\x02\xC3\xC4\x05$\x13\x02\xC4\xC5\x05$\x13\x02\xC5\xC6\x05" +
+		"$\x13\x02\xC6\xC7\x05$\x13\x02\xC7\xC8\x05$\x13\x02\xC8\xC9\t\x02\x02" +
+		"\x02\xC9\x1F\x03\x02\x02\x02\xCA\xCB\x07\f\x02\x02\xCB\xCC\x05$\x13\x02" +
+		"\xCC\xCE\x07\x13\x02\x02\xCD\xCF\x05\"\x12\x02\xCE\xCD\x03\x02\x02\x02" +
+		"\xCF\xD0\x03\x02\x02\x02\xD0\xCE\x03\x02\x02\x02\xD0\xD1\x03\x02\x02\x02" +
+		"\xD1!\x03\x02\x02\x02\xD2\xD3\x05$\x13\x02\xD3\xD4\x05$\x13\x02\xD4\xD5" +
+		"\x05$\x13\x02\xD5\xD6\t\x02\x02\x02\xD6#\x03\x02\x02\x02\xD7\xD8\t\x03" +
+		"\x02\x02\xD8%\x03\x02\x02\x02\x17(+06;@Vhjpxz\x81\x85\x8E\x9B\xA2\xAE" +
+		"\xB2\xBC\xD0";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!PIE4Parser.__ATN) {
@@ -1234,42 +1153,6 @@ export class PieFileContext extends ParserRuleContext {
 			return this.getRuleContexts(LevelSectionContext);
 		} else {
 			return this.getRuleContext(i, LevelSectionContext);
-		}
-	}
-	public number(): NumberContext[];
-	public number(i: number): NumberContext;
-	public number(i?: number): NumberContext | NumberContext[] {
-		if (i === undefined) {
-			return this.getRuleContexts(NumberContext);
-		} else {
-			return this.getRuleContext(i, NumberContext);
-		}
-	}
-	public SCIENTIFIC(): TerminalNode[];
-	public SCIENTIFIC(i: number): TerminalNode;
-	public SCIENTIFIC(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(PIE4Parser.SCIENTIFIC);
-		} else {
-			return this.getToken(PIE4Parser.SCIENTIFIC, i);
-		}
-	}
-	public FLOAT(): TerminalNode[];
-	public FLOAT(i: number): TerminalNode;
-	public FLOAT(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(PIE4Parser.FLOAT);
-		} else {
-			return this.getToken(PIE4Parser.FLOAT, i);
-		}
-	}
-	public INTEGER(): TerminalNode[];
-	public INTEGER(i: number): TerminalNode;
-	public INTEGER(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(PIE4Parser.INTEGER);
-		} else {
-			return this.getToken(PIE4Parser.INTEGER, i);
 		}
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {

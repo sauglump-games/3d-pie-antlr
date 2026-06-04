@@ -14,5 +14,13 @@ The file format was a mystery to me, so I decided to reverse engineer it. There 
 
 * `npm run build` - Compiles TypeScript code using tsc
 * `npm test` - Runs all tests in the test directory
+* `npm run lint` - Lints the hand-written sources with ESLint (generated parsers in `src/g4` are ignored)
 * `npm run antlr4ts` - Generates TypeScript code from the ANTLR4 grammar file
 * `npm run pretest` - Automatically runs antlr4ts before tests
+
+## Status
+
+PIE 2, 3 and 4 all have ANTLR grammars that parse the bundled fixtures without
+errors. PIE 3 additionally has a model builder: `PIEModel.parse(text)` decodes a
+PIE 3 file into a `PIEModel` (header + per-level points, polygons and
+connectors). PIE 2 and 4 model builders are not implemented yet.

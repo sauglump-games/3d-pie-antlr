@@ -70,9 +70,12 @@ number
     ;
 
 // Lexer Rules
-INTEGER : [ \t]* '-'?[0-9]+ [ \t]* ;
-FLOAT   : [ \t]* '-'?[0-9]+ ('.'[0-9]+)? [ \t]* ;
-STRING  : [ \t]* [a-zA-Z0-9./_-]+ [ \t]* ;
-WS_OR_TAB : [ \t]+ ;
-NL      : '\r'? '\n' ;
+//
+// Spaces and tabs are skipped; newlines are significant record terminators.
+// Numeric tokens are pure (no embedded whitespace) — surrounding spacing is
+// handled by the WS skip rule rather than baked into every value token.
+INTEGER : '-'? [0-9]+ ;
+FLOAT   : '-'? [0-9]+ ('.' [0-9]+)? ;
+STRING  : [a-zA-Z0-9./_-]+ ;
+NL      : ('\r'? '\n')+ ;
 WS      : [ \t]+ -> skip ;
