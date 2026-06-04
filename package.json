@@ -1,6 +1,6 @@
 {
-  "name": "3d-pie",
-  "version": "1.0.0",
+  "name": "3d-pie-antlr",
+  "version": "0.0.1",
   "description": "A documented parser for the Warzone 2100 PIE 3D model format (versions 2, 3 and 4).",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
