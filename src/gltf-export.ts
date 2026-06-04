@@ -44,17 +44,10 @@ export function exportGLTF(model: PIEModel, options: GLTFExportOptions = {}): st
 
   const positions: number[] = [];
   const uvs: number[] = [];
-  const min: [number, number, number] = [Infinity, Infinity, Infinity];
-  const max: [number, number, number] = [-Infinity, -Infinity, -Infinity];
 
   const pushVertex = (pointIndex: number, u: number, v: number): void => {
     const p = level.points[pointIndex];
     positions.push(p.x, p.y, p.z);
-    const xyz = [p.x, p.y, p.z];
-    for (let k = 0; k < 3; k++) {
-      if (xyz[k] < min[k]) min[k] = xyz[k];
-      if (xyz[k] > max[k]) max[k] = xyz[k];
-    }
     uvs.push(pixelUV ? u / texW : u, pixelUV ? v / texH : v);
   };
 
@@ -73,13 +66,25 @@ export function exportGLTF(model: PIEModel, options: GLTFExportOptions = {}): st
   }
 
   const vertexCount = positions.length / 3;
+  const posArray = new Float32Array(positions);
+  const uvArray = new Float32Array(uvs);
+
+  // Compute bounds from the float32-rounded values actually stored in the
+  // buffer, so accessor.min/max match exactly (the glTF validator is strict
+  // about this: a float64 bound off by a rounding bit is an error).
+  const min: [number, number, number] = [Infinity, Infinity, Infinity];
+  const max: [number, number, number] = [-Infinity, -Infinity, -Infinity];
+  for (let i = 0; i < vertexCount; i++) {
+    for (let k = 0; k < 3; k++) {
+      const value = posArray[i * 3 + k];
+      if (value < min[k]) min[k] = value;
+      if (value > max[k]) max[k] = value;
+    }
+  }
   if (vertexCount === 0) {
     min.fill(0);
     max.fill(0);
   }
-
-  const posArray = new Float32Array(positions);
-  const uvArray = new Float32Array(uvs);
   const buffer = Buffer.concat([
     Buffer.from(posArray.buffer, posArray.byteOffset, posArray.byteLength),
     Buffer.from(uvArray.buffer, uvArray.byteOffset, uvArray.byteLength),
@@ -131,6 +136,7 @@ export function exportGLTF(model: PIEModel, options: GLTFExportOptions = {}): st
     gltf.materials = [
       {
         name: texture?.filename ?? "texture",
+        doubleSided: true,
         pbrMetallicRoughness: {
           baseColorTexture: { index: 0 },
           metallicFactor: 0,
@@ -142,6 +148,7 @@ export function exportGLTF(model: PIEModel, options: GLTFExportOptions = {}): st
     gltf.materials = [
       {
         name: "pie-material",
+        doubleSided: true,
         pbrMetallicRoughness: {
           baseColorFactor: [0.8, 0.8, 0.8, 1],
           metallicFactor: 0,

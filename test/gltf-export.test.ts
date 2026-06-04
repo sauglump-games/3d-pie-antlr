@@ -54,3 +54,31 @@ describe('exportGLTF (cybd_run.pie)', () => {
     assert.throws(() => exportGLTF(model, { level: 99 }), RangeError);
   });
 });
+
+describe('exportGLTF accessor bounds', () => {
+  // Use a model with fractional coordinates so float32 rounding is exercised:
+  // accessor.min/max must equal the bounds of the stored float32 data exactly,
+  // or the glTF validator reports an error.
+  const model = PIEModel.parse(
+    fs.readFileSync(path.join('test', 'fixtures', 'PIE4', 'blfact0_struct.pie'), 'utf8')
+  );
+
+  test('min/max match the stored float32 positions exactly', () => {
+    const gltf = JSON.parse(exportGLTF(model));
+    const accessor = gltf.accessors[0];
+    const buffer = Buffer.from(gltf.buffers[0].uri.split(',')[1], 'base64');
+    const positions = new Float32Array(buffer.buffer, buffer.byteOffset, accessor.count * 3);
+
+    const min = [Infinity, Infinity, Infinity];
+    const max = [-Infinity, -Infinity, -Infinity];
+    for (let i = 0; i < accessor.count; i++) {
+      for (let k = 0; k < 3; k++) {
+        const v = positions[i * 3 + k];
+        if (v < min[k]) min[k] = v;
+        if (v > max[k]) max[k] = v;
+      }
+    }
+    assert.deepStrictEqual(accessor.min, min);
+    assert.deepStrictEqual(accessor.max, max);
+  });
+});

@@ -4,9 +4,11 @@
 //
 // Options:
 //   --no-texture     Export geometry only (skip fetching textures).
-//   --embed          Embed each texture in its glTF (self-contained but large).
-//                    Default: write shared texture PNGs once to <outputDir>/textures
-//                    and reference them, so a shared page is not duplicated per file.
+//   --shared         Write texture PNGs once to <outputDir>/textures and have the
+//                    glTFs reference them (smaller output). NOTE: this uses a
+//                    `../textures/...` relative path, which some viewers that
+//                    sandbox/serve the file cannot resolve. The default embeds
+//                    each texture so the files are self-contained and just work.
 //   --limit=N        Convert at most N files (useful for a quick sample).
 //
 // Output mirrors the input directory structure under <outputDir>, with each
@@ -56,7 +58,7 @@ async function main(): Promise<void> {
     process.exit(1);
   }
   const fetchTextures = !args.includes('--no-texture');
-  const embed = args.includes('--embed');
+  const embed = !args.includes('--shared'); // self-contained by default
   const limitArg = args.find((a) => a.startsWith('--limit='));
   const limit = limitArg ? Number(limitArg.split('=')[1]) : Infinity;
 

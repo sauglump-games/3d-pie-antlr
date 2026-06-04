@@ -57,15 +57,16 @@ node --require ts-node/register scripts/pie2gltf.ts path/to/model.pie out.gltf t
 ### Batch conversion
 
 Convert a whole directory tree of models into an output folder (mirroring the
-input structure). Textures are fetched once per page and, by default, written to
-`<outputDir>/textures` and shared across files rather than embedded per model:
+input structure). By default each glTF is **self-contained** (texture embedded),
+so the files open in any viewer with no path resolution:
 
 ```sh
-# Convert every fixture into ./gltf-out (shared textures: ~6.6 MB for 32 models)
+# Convert every fixture into ./gltf-out (self-contained files)
 npm run demo:gltf:batch
 
-# Convert any tree; --embed makes each glTF self-contained, --limit samples
-node --require ts-node/register scripts/pie2gltf-batch.ts <inputDir> <outputDir> [--embed] [--no-texture] [--limit=N]
+# Convert any tree. --shared writes textures once to <outputDir>/textures and
+# references them (smaller, but uses ../ paths some viewers can't resolve).
+node --require ts-node/register scripts/pie2gltf-batch.ts <inputDir> <outputDir> [--shared] [--no-texture] [--limit=N]
 ```
 
 ```ts
