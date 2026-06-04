@@ -18,3 +18,5 @@ export {
   PieSyntaxError,
   PieValidationError,
 } from "./parse-error";
+
+export { exportGLTF, GLTFExportOptions } from "./gltf-export";
