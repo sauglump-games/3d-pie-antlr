@@ -7,6 +7,7 @@ import { PIE3Lexer } from '../src/g4/PIE3Lexer'
 import { PIE3Parser, PieFileContext } from '../src/g4/PIE3Parser'
 import { ANTLRErrorListener, RecognitionException, Recognizer } from 'antlr4ts'
 import { PIEModel } from '../src/pie-model'
+import { PieSyntaxError, PieValidationError } from '../src/parse-error'
 
 // Custom error listener to capture parsing errors
 class TestErrorListener implements ANTLRErrorListener<any> {
@@ -100,8 +101,8 @@ describe('PIEModel.parse builds a PIE3 model (cybd_run.pie)', () => {
     assert.strictEqual(model.header.version, 3)
     assert.strictEqual(model.header.type, 10200)
     assert.strictEqual(model.header.levelCount, 6)
-    assert.strictEqual(model.header.textureCount, 1)
-    assert.deepStrictEqual(model.header.textureFilenames, ['page-33-cyborgs.png'])
+    assert.strictEqual(model.header.textures.length, 1)
+    assert.strictEqual(model.header.textures[0].filename, 'page-33-cyborgs.png')
   })
 
   test('decodes every level', () => {
@@ -134,6 +135,16 @@ describe('PIEModel.parse builds a PIE3 model (cybd_run.pie)', () => {
     ])
   })
 
+  test('decodes ANIMOBJECT frames', () => {
+    const anims = model.levels[0].animObjects!
+    assert.strictEqual(anims.length, 1)
+    assert.deepStrictEqual(anims[0].header, [10, 0, 40])
+    assert.strictEqual(anims[0].frames.length, 40)
+    // First frame: "0 0 838 5183 24760 0 0 1.0 1.0 1.0"
+    assert.strictEqual(anims[0].frames[0].frame, 0)
+    assert.deepStrictEqual(anims[0].frames[0].data, [0, 838, 5183, 24760, 0, 0, 1.0, 1.0, 1.0])
+  })
+
   test('getVertexData returns a flat buffer for a level', () => {
     const vertexData = model.getVertexData(0)
     assert.ok(vertexData instanceof Float32Array)
@@ -142,5 +153,32 @@ describe('PIEModel.parse builds a PIE3 model (cybd_run.pie)', () => {
     assert.strictEqual(vertexData[0], -9)
     assert.strictEqual(vertexData[1], 18)
     assert.strictEqual(vertexData[2], -1)
+  })
+})
+
+// Round-trip: parse -> serialize -> parse must yield an equivalent model.
+describe('PIE3 round-trips through serialize', () => {
+  for (const name of ['cybd_run.pie', 'power_module4.pie', 'prslvtl1_empty.pie']) {
+    test(`${name}`, () => {
+      const original = PIEModel.parse(
+        fs.readFileSync(path.join('test', 'fixtures', 'PIE3', name), 'utf8')
+      )
+      const reparsed = PIEModel.parse(original.serialize())
+      assert.deepStrictEqual(reparsed.levels, original.levels)
+      assert.deepStrictEqual(reparsed.header, original.header)
+    })
+  }
+})
+
+describe('PIEModel.parse error handling', () => {
+  test('throws PieSyntaxError on malformed PIE3 input', () => {
+    const bad = 'PIE 3\nTYPE 200\nLEVELS 1\nLEVEL 1\nPOINTS 1\nthis is not a point\n'
+    assert.throws(() => PIEModel.parse(bad), PieSyntaxError)
+  })
+
+  test('throws PieValidationError when a declared count is wrong', () => {
+    // Declares POINTS 5 but provides only one point.
+    const mismatch = 'PIE 3\nTYPE 200\nLEVELS 1\nLEVEL 1\nPOINTS 5\n\t1 2 3\nPOLYGONS 0\n'
+    assert.throws(() => PIEModel.parse(mismatch), PieValidationError)
   })
 })

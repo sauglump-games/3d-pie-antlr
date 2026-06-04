@@ -6,8 +6,8 @@ describe('PIEModel', () => {
   const header: PIEHeader = {
     version: 3,
     type: 200,
-    textureCount: 1,
-    textureFilenames: ['page-1.png'],
+    textures: [{ id: 0, filename: 'page-1.png', width: 0, height: 0 }],
+    events: [],
     levelCount: 1,
   };
 
@@ -31,7 +31,7 @@ describe('PIEModel', () => {
   });
 
   it('should reject unsupported PIE versions', () => {
-    assert.throws(() => PIEModel.parse('PIE 2\n'), /only supports PIE 3/);
+    assert.throws(() => PIEModel.parse('PIE 9\n'), /Unsupported PIE version/);
   });
 
   it('should return a Float32Array of vertex data', () => {

@@ -8,22 +8,31 @@ import {
   PieHeaderContext,
   LevelsHeaderContext,
   LevelContext,
-  PointContext,
-  PolygonContext,
-  ConnectorContext,
+  PointsDataContext,
+  PolygonsDataContext,
+  NormalsDataContext,
+  ConnectorDataContext,
+  AnimObjectDataContext,
   NumberContext,
 } from "./g4/PIE3Parser";
 import { PIE3Visitor } from "./g4/PIE3Visitor";
-import type { PIEHeader, PIELevel, PIEPolygon } from "./pie-model";
+import type {
+  PIEHeader,
+  PIELevel,
+  PIEParseResult,
+  PIEPolygon,
+  PIEAnimObject,
+} from "./pie-model";
+import {
+  assertCount,
+  attachErrorCollector,
+  throwIfSyntaxErrors,
+} from "./parse-error";
 
-/** Parsed value of a `number` rule (INT, FLOAT, scientific, negative). */
 function numberValue(ctx: NumberContext): number {
-  // Whitespace is skipped by the PIE3 lexer, so the rule text is the bare
-  // literal and parseFloat handles every numeric variant uniformly.
   return parseFloat(ctx.text);
 }
 
-/** STRING tokens may be bare (page-1.png) or double-quoted ("page 1.png"). */
 function stringValue(text: string): string {
   if (text.length >= 2 && text.startsWith('"') && text.endsWith('"')) {
     return text.slice(1, -1);
@@ -32,18 +41,21 @@ function stringValue(text: string): string {
 }
 
 /**
- * Walks a parsed PIE3 tree and accumulates it into a {@link PIEHeader} plus a
- * list of {@link PIELevel}s. A new level container is opened on every `LEVEL`
- * rule, and point/polygon/connector rules append to whichever level is current.
+ * Walks a parsed PIE3 tree into a {@link PIEHeader} plus a list of
+ * {@link PIELevel}s. A new level is opened on every `LEVEL` rule, and the data
+ * sections append to whichever level is current.
  */
 export class PIE3ModelBuilder
   extends AbstractParseTreeVisitor<void>
   implements PIE3Visitor<void>
 {
-  private version = 3;
-  private type = 0;
-  private readonly textureFilenames: string[] = [];
-  private declaredLevelCount = 0;
+  private header: PIEHeader = {
+    version: 3,
+    type: 0,
+    textures: [],
+    events: [],
+    levelCount: 0,
+  };
   private readonly builtLevels: PIELevel[] = [];
   private currentLevel: PIELevel | undefined;
 
@@ -51,89 +63,138 @@ export class PIE3ModelBuilder
     return;
   }
 
-  build(ctx: PieFileContext): { header: PIEHeader; levels: PIELevel[] } {
+  build(ctx: PieFileContext): PIEParseResult {
     this.visit(ctx);
-    const header: PIEHeader = {
-      version: this.version,
-      type: this.type,
-      textureCount: this.textureFilenames.length,
-      textureFilenames: this.textureFilenames,
-      levelCount: this.declaredLevelCount,
-    };
-    return { header, levels: this.builtLevels };
+    assertCount("LEVELS", this.header.levelCount, this.builtLevels.length);
+    return { header: this.header, levels: this.builtLevels };
   }
 
   visitPieHeader(ctx: PieHeaderContext): void {
-    this.version = parseInt(ctx.pieVersion().INT().text, 10);
+    this.header.version = parseInt(ctx.pieVersion().INT().text, 10);
 
     const typeInfo = ctx.typeInfo();
     if (typeInfo) {
-      this.type = parseInt(typeInfo.INT().text, 10);
+      this.header.type = parseInt(typeInfo.INT().text, 10);
+    }
+
+    const interpolateInfo = ctx.interpolateInfo();
+    if (interpolateInfo) {
+      this.header.interpolate = parseInt(interpolateInfo.INT().text, 10);
     }
 
     const textureInfo = ctx.textureInfo();
     if (textureInfo) {
-      this.textureFilenames.push(stringValue(textureInfo.STRING().text));
+      const ints = textureInfo.INT();
+      this.header.textures.push({
+        id: parseInt(ints[0].text, 10),
+        filename: stringValue(textureInfo.STRING().text),
+        width: ints.length >= 3 ? parseInt(ints[1].text, 10) : undefined,
+        height: ints.length >= 3 ? parseInt(ints[2].text, 10) : undefined,
+      });
     }
-    // pieHeader is fully consumed here; do not descend into children.
+
+    for (const event of ctx.eventInfo()) {
+      this.header.events.push({
+        type: parseInt(event.INT().text, 10),
+        filename: stringValue(event.STRING().text),
+      });
+    }
   }
 
   visitLevelsHeader(ctx: LevelsHeaderContext): void {
-    this.declaredLevelCount = parseInt(ctx.INT().text, 10);
+    this.header.levelCount = parseInt(ctx.INT().text, 10);
   }
 
   visitLevel(ctx: LevelContext): void {
-    this.currentLevel = { points: [], polygons: [], connectors: [] };
+    this.currentLevel = {
+      points: [],
+      polygons: [],
+      connectors: [],
+      normals: [],
+      animObjects: [],
+    };
     this.builtLevels.push(this.currentLevel);
     this.visitChildren(ctx);
   }
 
-  visitPoint(ctx: PointContext): void {
-    const n = ctx.number();
-    this.currentLevel!.points.push({
-      x: numberValue(n[0]),
-      y: numberValue(n[1]),
-      z: numberValue(n[2]),
-    });
-  }
-
-  visitPolygon(ctx: PolygonContext): void {
-    // polygon: INT INT cornerData (number number)*
-    //   INT(0) = flags, INT(1) = corner count, cornerData = vertex indices,
-    //   trailing numbers = UV coordinate pairs.
-    const flags = parseInt(ctx.INT(0).text, 10);
-    const vertexIndices = ctx
-      .cornerData()
-      .INT()
-      .map((token) => parseInt(token.text, 10));
-    const uvCoordinates = ctx.number().map(numberValue);
-
-    const polygon: PIEPolygon = { type: flags, vertexIndices };
-    if (uvCoordinates.length > 0) {
-      polygon.uvCoordinates = uvCoordinates;
+  visitPointsData(ctx: PointsDataContext): void {
+    const declared = parseInt(ctx.INT().text, 10);
+    const points = ctx.pointList().point();
+    for (const p of points) {
+      const n = p.number();
+      this.currentLevel!.points.push({
+        x: numberValue(n[0]),
+        y: numberValue(n[1]),
+        z: numberValue(n[2]),
+      });
     }
-    this.currentLevel!.polygons.push(polygon);
+    assertCount("POINTS", declared, points.length);
   }
 
-  visitConnector(ctx: ConnectorContext): void {
-    const n = ctx.number();
-    this.currentLevel!.connectors.push({
-      x: numberValue(n[0]),
-      y: numberValue(n[1]),
-      z: numberValue(n[2]),
-    });
+  visitNormalsData(ctx: NormalsDataContext): void {
+    const declared = parseInt(ctx.INT().text, 10);
+    const rows = ctx.normalsList().normal();
+    for (const row of rows) {
+      this.currentLevel!.normals!.push(row.number().map(numberValue));
+    }
+    assertCount("NORMALS", declared, rows.length);
+  }
+
+  visitPolygonsData(ctx: PolygonsDataContext): void {
+    const declared = parseInt(ctx.INT().text, 10);
+    const polygons = ctx.polygonList().polygon();
+    for (const polygon of polygons) {
+      // polygon: INT INT cornerData (number number)*
+      const flags = parseInt(polygon.INT(0).text, 10);
+      const vertexIndices = polygon
+        .cornerData()
+        .INT()
+        .map((token) => parseInt(token.text, 10));
+      const uvCoordinates = polygon.number().map(numberValue);
+      const result: PIEPolygon = { type: flags, vertexIndices };
+      if (uvCoordinates.length > 0) {
+        result.uvCoordinates = uvCoordinates;
+      }
+      this.currentLevel!.polygons.push(result);
+    }
+    assertCount("POLYGONS", declared, polygons.length);
+  }
+
+  visitConnectorData(ctx: ConnectorDataContext): void {
+    const declared = parseInt(ctx.INT().text, 10);
+    const connectors = ctx.connectorList().connector();
+    for (const connector of connectors) {
+      const n = connector.number();
+      this.currentLevel!.connectors.push({
+        x: numberValue(n[0]),
+        y: numberValue(n[1]),
+        z: numberValue(n[2]),
+      });
+    }
+    assertCount("CONNECTORS", declared, connectors.length);
+  }
+
+  visitAnimObjectData(ctx: AnimObjectDataContext): void {
+    const header = ctx.INT().map((token) => parseInt(token.text, 10));
+    const anim: PIEAnimObject = { header, frames: [] };
+    for (const frame of ctx.animFrameList().animFrame()) {
+      anim.frames.push({
+        frame: parseInt(frame.INT().text, 10),
+        data: frame.number().map(numberValue),
+      });
+    }
+    this.currentLevel!.animObjects!.push(anim);
   }
 }
 
 /** Lex, parse and build a PIE3 document into header + levels. */
-export function parsePIE3(data: string): {
-  header: PIEHeader;
-  levels: PIELevel[];
-} {
+export function parsePIE3(data: string): PIEParseResult {
   const inputStream = CharStreams.fromString(data);
   const lexer = new PIE3Lexer(inputStream);
   const tokenStream = new CommonTokenStream(lexer);
   const parser = new PIE3Parser(tokenStream);
+  const collector = attachErrorCollector(lexer, parser);
   const tree = parser.pieFile();
+  throwIfSyntaxErrors(collector);
   return new PIE3ModelBuilder().build(tree);
 }
